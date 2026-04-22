@@ -8,54 +8,72 @@ const DASH_TIME = 0.15
 
 var dash_timer = 0.0
 var dash_direction = Vector2.ZERO
+var is_attacking = false
 
 func _physics_process(delta: float) -> void:
 	var direction = Vector2.ZERO
 
-	# Movement input
-	if Input.is_action_pressed("walk-left"):
-		direction.x -= 1
-	if Input.is_action_pressed("walk-right"):
-		direction.x += 1
-	if Input.is_action_pressed("walk-forward"):
-		direction.y -= 1
-	if Input.is_action_pressed("walk-backwards"):
-		direction.y += 1
-
-	if direction != Vector2.ZERO:
-		direction = direction.normalized()
-
-	# Start dash
-	if Input.is_action_just_pressed("dash"):
+	if not is_attacking:
+		if Input.is_action_pressed("walk-left"):
+			direction.x -= 1
+		if Input.is_action_pressed("walk-right"):
+			direction.x += 1
+		if Input.is_action_pressed("walk-forward"):
+			direction.y -= 1
+		if Input.is_action_pressed("walk-backwards"):
+			direction.y += 1
 		if direction != Vector2.ZERO:
-			dash_direction = direction
-		elif velocity != Vector2.ZERO:
-			dash_direction = velocity.normalized()
+			direction = direction.normalized()
 
-		if dash_direction != Vector2.ZERO:
-			dash_timer = DASH_TIME
+		# Start dash
+		if Input.is_action_just_pressed("dash"):
+			if direction != Vector2.ZERO:
+				dash_direction = direction
+			elif velocity != Vector2.ZERO:
+				dash_direction = velocity.normalized()
+			if dash_direction != Vector2.ZERO:
+				dash_timer = DASH_TIME
 
-	# Dash movement
-	if dash_timer > 0:
-		dash_timer -= delta
-		velocity = dash_direction * DASH_SPEED
-	else:
-		velocity = direction * SPEED
-
-	# Animations
-	if velocity != Vector2.ZERO:
-		var move_dir = velocity.normalized()
-
-		if abs(move_dir.x) >= abs(move_dir.y):
-			anim.play("walk-right")
-			anim.flip_h = move_dir.x < 0
+		# Dash movement
+		if dash_timer > 0:
+			dash_timer -= delta
+			velocity = dash_direction * DASH_SPEED
 		else:
-			anim.flip_h = false
-			if move_dir.y < 0:
-				anim.play("walk-forward")
+			velocity = direction * SPEED
+
+		# Animations
+		if velocity != Vector2.ZERO:
+			var move_dir = velocity.normalized()
+			if abs(move_dir.x) >= abs(move_dir.y):
+				anim.play("walk-right")
+				anim.flip_h = move_dir.x < 0
 			else:
-				anim.play("walk-backwards")
+				anim.flip_h = false
+				if move_dir.y < 0:
+					anim.play("walk-forward")
+				else:
+					anim.play("walk-backwards")
+		else:
+			anim.stop()
 	else:
-		anim.stop()
+		velocity = Vector2.ZERO
 
 	move_and_slide()
+
+func _process(delta: float) -> void:
+	if not is_attacking:
+		if Input.is_action_just_pressed("ui_left"):
+			attack("attack-right", true)
+		elif Input.is_action_just_pressed("ui_right"):
+			attack("attack-right", false)
+		elif Input.is_action_just_pressed("ui_up"):
+			attack("attack-forward", false)
+		elif Input.is_action_just_pressed("ui_down"):
+			attack("attack-backwards", false)
+
+func attack(anim_name: String, flip: bool) -> void:
+	is_attacking = true
+	anim.flip_h = flip
+	anim.play(anim_name)
+	await anim.animation_finished
+	is_attacking = false
