@@ -297,20 +297,19 @@ animations = [{
 radius = 5.0
 height = 12.0
 
-[node name="Warrior" type="Node2D" unique_id=1213541886]
-
-[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=218608932]
+[node name="Warrior" type="CharacterBody2D" unique_id=850338927]
 z_index = 1
+collision_layer = 2
 script = ExtResource("1_fvbna")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D" unique_id=2004856190]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1936900679]
 sprite_frames = SubResource("SpriteFrames_u37hl")
 animation = &"attack-backwards"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=1394703008]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1907944925]
 position = Vector2(0, 12)
 shape = SubResource("CapsuleShape2D_64u8w")
 
-[node name="Camera2D" type="Camera2D" parent="CharacterBody2D" unique_id=902931945]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1391463818]
 zoom = Vector2(4, 4)
 position_smoothing_enabled = true
