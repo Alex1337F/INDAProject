@@ -1,10 +1,11 @@
+class_name PlayerBase
 extends CharacterBody2D
 
 const SPEED = 300.0
 const DASH_SPEED = 700.0
 const DASH_TIME = 0.15
 
-@onready var anim = $AnimatedSprite2D
+@onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 
 var dash_timer = 0.0
 var dash_direction = Vector2.ZERO
@@ -59,21 +60,3 @@ func _physics_process(delta: float) -> void:
 		velocity = Vector2.ZERO
 
 	move_and_slide()
-
-func _process(delta: float) -> void:
-	if not is_attacking:
-		if Input.is_action_just_pressed("ui_left"):
-			attack("attack-right", true)
-		elif Input.is_action_just_pressed("ui_right"):
-			attack("attack-right", false)
-		elif Input.is_action_just_pressed("ui_up"):
-			attack("attack-forward", false)
-		elif Input.is_action_just_pressed("ui_down"):
-			attack("attack-backwards", false)
-
-func attack(anim_name: String, flip: bool) -> void:
-	is_attacking = true
-	anim.flip_h = flip
-	anim.play(anim_name)
-	await anim.animation_finished
-	is_attacking = false

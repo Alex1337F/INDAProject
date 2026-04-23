@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d0pqomqu5ejug"]
 
-[ext_resource type="Script" uid="uid://vywu0q13tygx" path="res://scripts/movement.gd" id="1_fvbna"]
+[ext_resource type="Script" uid="uid://wi57x3m384lo" path="res://scripts/warrior.gd" id="1_fvbna"]
 [ext_resource type="Texture2D" uid="uid://c5h2ctpg5v47c" path="res://assets/sprites/characters/player.png" id="2_jq62g"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fvbna"]
@@ -293,23 +293,21 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_64u8w"]
-radius = 5.0
-height = 12.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fvbna"]
+radius = 7.0
+height = 20.0
 
-[node name="Warrior" type="CharacterBody2D" unique_id=850338927]
-z_index = 1
-collision_layer = 2
+[node name="warrior" type="CharacterBody2D" unique_id=376452452]
 script = ExtResource("1_fvbna")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1936900679]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1916523818]
 sprite_frames = SubResource("SpriteFrames_u37hl")
 animation = &"attack-backwards"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1907944925]
-position = Vector2(0, 12)
-shape = SubResource("CapsuleShape2D_64u8w")
-
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1391463818]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=859972595]
 zoom = Vector2(4, 4)
 position_smoothing_enabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=273091968]
+position = Vector2(0, 9)
+shape = SubResource("CapsuleShape2D_fvbna")
