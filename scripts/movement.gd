@@ -1,7 +1,7 @@
 class_name PlayerBase
 extends CharacterBody2D
 
-const SPEED = 300.0
+const SPEED = 150.0
 const DASH_SPEED = 700.0
 const DASH_TIME = 0.15
 

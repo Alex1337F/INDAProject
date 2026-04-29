@@ -1,14 +1,14 @@
 extends CharacterBody2D
 
 const SPEED = 30.0
-#@export var player: CharacterBody2D
-@onready var player: CharacterBody2D = $"../player"
+@export var player: CharacterBody2D
+#@onready var player: CharacterBody2D = $"../player"
 
 
 @onready var anim = $AnimatedSprite2D
 
 func _physics_process(delta: float) -> void:
-	var direction = (player.position - position).normalized()
+	var direction = (player.global_position - global_position).normalized()
 	velocity = direction * SPEED
 
 	# Animations
