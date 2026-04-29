@@ -1,7 +1,7 @@
 extends PlayerBase
 
-const ARROW = preload("uid://bltawdbi8a00q")
-const FIRE_INTERVAL = 1.0
+const ARROW = preload("res://scenes/arrow.tscn")
+const FIRE_INTERVAL = 0.5
 
 #@export var bow: Node2D
 @onready var bow: Node2D = $weapon
@@ -23,7 +23,7 @@ func fire_arrow() -> void:
 	get_tree().current_scene.add_child(arrow)
 	arrow.global_position = bow.global_position
 	arrow.rotation = bow.aim_direction.angle()
-	arrow.scale.x = -1.0
+	arrow.scale.x = 1.0
 	if arrow.has_method("set_direction"):
 		arrow.set_direction(bow.aim_direction)
 	elif "direction" in arrow:
