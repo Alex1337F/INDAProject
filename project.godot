@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="INDAProject"
-run/main_scene="uid://dxry2v4pw3d2v"
+run/main_scene="uid://bn01v08r0djie"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GameState="*uid://cei5bjmyyjy7m"
 
 [input]
 

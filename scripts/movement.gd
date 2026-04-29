@@ -4,7 +4,7 @@ extends CharacterBody2D
 signal health_changed(current_hp: int, max_hp: int)
 signal player_died()
 
-@export var SPEED = 150.0
+@export var SPEED: float = 150.0
 @export var DASH_SPEED = 700.0
 @export var DASH_TIME = 0.15
 @export var MAX_HEALTH: int = 100
@@ -21,8 +21,11 @@ var invincibility_timer: float = 0.0
 var spawn_position: Vector2
 const INVINCIBILITY_DURATION = 0.8  # Seconds of invincibility after being hit
 const RESPAWN_DELAY = 1.2           # Seconds before respawning
+func register_sprite(sprite: AnimatedSprite2D) -> void:
+	anim = sprite
 
 func _ready() -> void:
+	add_to_group("player")
 	current_health = MAX_HEALTH
 	spawn_position = global_position
 	health_changed.emit(current_health, MAX_HEALTH)

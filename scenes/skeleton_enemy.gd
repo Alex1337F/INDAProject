@@ -6,7 +6,7 @@ const STOP_DISTANCE = 10.0 # Tolerance band so it doesn't jitter
 const FIRE_INTERVAL = 1.5 # Seconds between shots
 const PROJECTILE_SPEED = 120.0
 
-@onready var player: CharacterBody2D = $"../player/Archer"
+@onready var player: CharacterBody2D
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var hands: Sprite2D = $Hands
 @onready var hands2: Sprite2D = $Hands2
@@ -30,11 +30,14 @@ const WIGGLE_ROTATION = 0.06 # Radians of rotation wiggle
 var skeleton_projectile_scene: PackedScene = preload("res://scenes/skeleton_projectile.tscn")
 
 func _ready() -> void:
+	
+	
 	# Capture the positions you set in the editor as the "rest" positions
 	hands_base_pos = hands.position
 	hands2_base_pos = hands2.position
 	bone_base_pos = bone.position
 	bone_base_rot = bone.rotation
+	player = get_tree().get_first_node_in_group("player")
 
 func _unhandled_input(event: InputEvent) -> void:
 	# Debug: press P to kill the skeleton
@@ -56,9 +59,13 @@ func _die() -> void:
 	queue_free()
 
 func _physics_process(delta: float) -> void:
-	if player == null or is_dead:
+	
+	if is_dead:
 		return
 
+	if player == null:
+		player = get_tree().get_first_node_in_group("player")
+		return
 	var to_player = player.global_position - global_position
 	var distance = to_player.length()
 	var direction = to_player.normalized()

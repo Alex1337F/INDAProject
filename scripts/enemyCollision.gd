@@ -1,7 +1,7 @@
 extends Area2D
 
 @export var DAMAGE: int = 10
-@onready var player_archer = $"../../player/Archer"
+#@onready var player_archer = $"../../player/Archer"
 
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)

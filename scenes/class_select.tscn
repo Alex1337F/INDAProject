@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://bn01v08r0djie"]
+
+[ext_resource type="Script" uid="uid://bdyitr5t8mei4" path="res://scripts/control.gd" id="1_ur81s"]
+
+[node name="class_select" type="Node2D" unique_id=591326278]
+
+[node name="Control" type="Control" parent="." unique_id=512715497]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+size_flags_horizontal = 4
+script = ExtResource("1_ur81s")
+
+[node name="Label" type="Label" parent="Control" unique_id=930975969]
+layout_mode = 0
+offset_left = 130.0
+offset_top = 9.0
+offset_right = 170.0
+offset_bottom = 32.0
+
+[node name="ArcherButton" type="Button" parent="Control" unique_id=1699626814]
+layout_mode = 0
+offset_left = 58.0
+offset_top = 93.0
+offset_right = 66.0
+offset_bottom = 101.0
+
+[node name="WarriorButton" type="Button" parent="Control" unique_id=440443466]
+layout_mode = 0
+offset_left = 261.0
+offset_top = 91.0
+offset_right = 269.0
+offset_bottom = 99.0
+
+[connection signal="pressed" from="Control/ArcherButton" to="Control" method="_on_archer_button_pressed"]
+[connection signal="pressed" from="Control/ArcherButton" to="Control" method="_on_ArcherButton_pressed"]
+[connection signal="pressed" from="Control/WarriorButton" to="Control" method="_on_warrior_button_pressed"]
+[connection signal="pressed" from="Control/WarriorButton" to="Control" method="_on_WarriorButton_pressed"]
