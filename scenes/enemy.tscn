@@ -224,7 +224,7 @@ radius = 8.0
 
 [node name="enemy" type="CharacterBody2D" unique_id=1039766219]
 z_index = 2
-collision_layer = 4
+collision_layer = 8
 script = ExtResource("1_4gyqm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1912753515]

@@ -483,6 +483,7 @@ tile_map_data = PackedByteArray("AAD2//3/AAAAAAUAAAD2//7/AAAAAAYAAAD2////AAAAAAc
 tile_set = SubResource("TileSet_lbhrr")
 
 [node name="player" type="CharacterBody2D" parent="." unique_id=999690038]
+collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player" unique_id=1851201967]
 position = Vector2(-3, 6)
