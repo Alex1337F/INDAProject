@@ -17,9 +17,9 @@ func _process(delta: float) -> void:
 	position += direction * speed * delta
 
 func _on_body_entered(body: Node) -> void:
-	if body.name == "player" or body is CharacterBody2D:
-		# Don't hit the skeleton itself
-		if body == get_parent():
-			return
-		print("Skeleton projectile hit: ", body.name)
+	# Ignore the skeleton that fired this
+	if body.get_parent() != null and body.get_parent().name == "SkeletonEnemy":
+		return
+	if body is PlayerBase:
+		body.take_damage(15)
 		queue_free()
