@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dy4hw3as5u5te" path="res://scenes/enemy.tscn" id="2_lnu2h"]
 [ext_resource type="Texture2D" uid="uid://8kw3ni6v5lr1" path="res://assets/sprites/RavenFantasy/All Tileset/16x16.png" id="2_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://ybefxn3cm6g6" path="res://scenes/skeletonEnemy.tscn" id="4_lbhrr"]
+[ext_resource type="PackedScene" path="res://scenes/hud.tscn" id="5_iywne"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
 texture = ExtResource("2_yqjtg")
@@ -496,3 +497,5 @@ position = Vector2(82, -43)
 
 [node name="SkeletonEnemy" parent="." unique_id=1157250381 instance=ExtResource("4_lbhrr")]
 position = Vector2(-75, 4)
+
+[node name="HUD" parent="." unique_id=542469217 instance=ExtResource("5_iywne")]
