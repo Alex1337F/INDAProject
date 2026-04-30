@@ -297,13 +297,12 @@ animations = [{
 radius = 7.0
 height = 20.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_fvbna"]
+radius = 26.019224
+
 [node name="warrior" type="CharacterBody2D" unique_id=376452452]
 collision_layer = 8
 script = ExtResource("1_fvbna")
-SPEED = null
-DASH_SPEED = null
-DASH_TIME = null
-MAX_HEALTH = null
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1916523818]
 sprite_frames = SubResource("SpriteFrames_u37hl")
@@ -312,3 +311,12 @@ animation = &"attack-backwards"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=273091968]
 position = Vector2(0, 9)
 shape = SubResource("CapsuleShape2D_fvbna")
+
+[node name="AttackArea" type="Area2D" parent="." unique_id=1083347910]
+position = Vector2(0, 9)
+collision_layer = 0
+collision_mask = 8
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" unique_id=1447854060]
+shape = SubResource("CircleShape2D_fvbna")
