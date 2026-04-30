@@ -35,6 +35,18 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_coin_bg"]
+bg_color = Color(0.08, 0.08, 0.08, 0.85)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.75, 0.6, 0.15, 0.5)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
 [node name="HUD" type="CanvasLayer" unique_id=1821449666]
 layer = 10
 script = ExtResource("1_hud")
@@ -103,4 +115,50 @@ theme_override_constants/shadow_offset_y = 1
 theme_override_font_sizes/font_size = 10
 text = "100 / 100"
 horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CoinContainer" type="HBoxContainer" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -120.0
+offset_top = 8.0
+offset_right = -12.0
+offset_bottom = 42.0
+grow_horizontal = 0
+theme_override_constants/separation = 4
+
+[node name="Panel" type="Panel" parent="CoinContainer"]
+custom_minimum_size = Vector2(108, 34)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_coin_bg")
+
+[node name="HBox" type="HBoxContainer" parent="CoinContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_right = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="CoinIcon" type="Label" parent="CoinContainer/Panel/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.2, 1)
+theme_override_font_sizes/font_size = 22
+text = "●"
+vertical_alignment = 1
+
+[node name="CoinLabel" type="Label" parent="CoinContainer/Panel/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.92, 0.5, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.7)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 16
+text = "0"
 vertical_alignment = 1

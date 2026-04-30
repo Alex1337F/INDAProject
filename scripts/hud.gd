@@ -6,6 +6,10 @@ extends CanvasLayer
 @onready var heart_icon: Label = $HealthBarContainer/HeartIcon
 @onready var bar_container: Control = $HealthBarContainer
 
+# Coin HUD
+@onready var coin_label: Label = $CoinContainer/Panel/HBox/CoinLabel
+@onready var coin_icon: Label = $CoinContainer/Panel/HBox/CoinIcon
+
 var previous_health: int = 100
 var shake_intensity: float = 0.0
 var original_bar_pos: Vector2
@@ -14,6 +18,11 @@ var is_low_health: bool = false
 
 func _ready() -> void:
 	original_bar_pos = bar_container.position
+
+	# --- Coin counter ---
+	GameState.coins_changed.connect(_on_coins_changed)
+	_on_coins_changed(GameState.coins)
+
 	# Wait one frame so game.gd has time to spawn the player
 	await get_tree().process_frame
 	# Find the player node (dynamically spawned) via group
@@ -121,3 +130,15 @@ func _on_player_died() -> void:
 	# Heart shatters
 	var death_tween = create_tween()
 	death_tween.tween_property(heart_icon, "modulate", Color(0.5, 0.5, 0.5, 0.4), 0.5)
+
+func _on_coins_changed(total: int) -> void:
+	coin_label.text = str(total)
+	# Pop animation on the icon
+	var pop = create_tween()
+	coin_icon.scale = Vector2(1.0, 1.0)
+	pop.tween_property(coin_icon, "scale", Vector2(1.5, 1.5), 0.1).set_ease(Tween.EASE_OUT)
+	pop.tween_property(coin_icon, "scale", Vector2(1.0, 1.0), 0.15).set_ease(Tween.EASE_IN)
+	# Brief golden flash on the label
+	coin_label.modulate = Color(1.0, 1.0, 0.4)
+	var flash = create_tween()
+	flash.tween_property(coin_label, "modulate", Color.WHITE, 0.3)
