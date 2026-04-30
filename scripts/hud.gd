@@ -14,6 +14,8 @@ var is_low_health: bool = false
 
 func _ready() -> void:
 	original_bar_pos = bar_container.position
+	# Wait one frame so game.gd has time to spawn the player
+	await get_tree().process_frame
 	# Find the player node (dynamically spawned) via group
 	var player = get_tree().get_first_node_in_group("player")
 	if player and player.has_signal("health_changed"):

@@ -49,10 +49,10 @@ offset_bottom = 36.0
 
 [node name="HeartIcon" type="Label" parent="HealthBarContainer" unique_id=1806896143]
 layout_mode = 1
-offset_left = -3.0
-offset_top = -8.0
-offset_right = 18.0
-offset_bottom = 34.0
+offset_left = -9.0
+offset_top = -7.0
+offset_right = 22.0
+offset_bottom = 35.0
 theme_override_colors/font_color = Color(0.95, 0.25, 0.25, 1)
 theme_override_font_sizes/font_size = 30
 text = "♥"

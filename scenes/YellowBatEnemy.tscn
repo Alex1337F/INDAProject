@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cphlwx8m1g7nc"]
 
 [ext_resource type="Texture2D" uid="uid://b1us1d7yr1ufv" path="res://assets/sprites/characters/YellowsBatEnemy/SpriteSheet.png" id="1_b0teh"]
-[ext_resource type="Script" path="res://scripts/yellow_bat_enemy.gd" id="2_bat"]
+[ext_resource type="Script" uid="uid://c4itbwg0rbvla" path="res://scripts/yellow_bat_enemy.gd" id="2_bat"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jgr56"]
 atlas = ExtResource("1_b0teh")
@@ -142,8 +142,8 @@ animations = [{
 radius = 5.0
 
 [node name="YellowBatEnemy" type="CharacterBody2D" unique_id=275462408]
-collision_layer = 4
-collision_mask = 1
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("2_bat")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=275445983]

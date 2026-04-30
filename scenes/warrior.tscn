@@ -298,6 +298,7 @@ radius = 7.0
 height = 20.0
 
 [node name="warrior" type="CharacterBody2D" unique_id=376452452]
+collision_layer = 8
 script = ExtResource("1_fvbna")
 SPEED = null
 DASH_SPEED = null

@@ -3,9 +3,7 @@
 [ext_resource type="Script" uid="uid://b5estdy26diku" path="res://scripts/game.gd" id="1_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://8kw3ni6v5lr1" path="res://assets/sprites/RavenFantasy/All Tileset/16x16.png" id="2_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://s3aesa7adavn" path="res://scenes/hud.tscn" id="5_iywne"]
-[ext_resource type="PackedScene" uid="uid://cos2ohgh8nh7b" path="res://scenes/bambooEnemy.tscn" id="5_p57ef"]
 [ext_resource type="Script" uid="uid://b3rfpo0bmet6l" path="res://scripts/player_camera.gd" id="6_p57ef"]
-[ext_resource type="PackedScene" uid="uid://c0gvygpxb1nbo" path="res://scenes/eyeEnemy.tscn" id="6_u5sy4"]
 [ext_resource type="PackedScene" uid="uid://cphlwx8m1g7nc" path="res://scenes/YellowBatEnemy.tscn" id="7_u5sy4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
@@ -489,12 +487,6 @@ tile_set = SubResource("TileSet_lbhrr")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1231266000]
 zoom = Vector2(4, 4)
 script = ExtResource("6_p57ef")
-
-[node name="BambooEnemy" parent="." unique_id=147720322 instance=ExtResource("5_p57ef")]
-position = Vector2(-63, -23)
-
-[node name="EyeEnemy" parent="." unique_id=1775067585 instance=ExtResource("6_u5sy4")]
-position = Vector2(-38, 36)
 
 [node name="YellowBatEnemy" parent="." unique_id=275462408 instance=ExtResource("7_u5sy4")]
 position = Vector2(-69, -3)
