@@ -14,8 +14,8 @@ var is_low_health: bool = false
 
 func _ready() -> void:
 	original_bar_pos = bar_container.position
-	# Find the player's Archer node and connect to its health signal
-	var player = get_node_or_null("/root/Game/player/Archer")
+	# Find the player node (dynamically spawned) via group
+	var player = get_tree().get_first_node_in_group("player")
 	if player and player.has_signal("health_changed"):
 		player.health_changed.connect(_on_health_changed)
 		if player.has_signal("player_died"):

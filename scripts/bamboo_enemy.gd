@@ -7,8 +7,8 @@ const LOSE_RANGE = 160.0       # How far before it gives up chasing
 const CONTACT_DAMAGE = 12
 const DAMAGE_COOLDOWN = 0.8    # Seconds between contact damage hits
 
-@onready var player: CharacterBody2D = $"../player/Archer"
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
+var player: CharacterBody2D
 
 enum State { IDLE, PATROL, CHASE }
 var state: State = State.IDLE
@@ -21,8 +21,12 @@ var idle_timer: float = 0.0
 # Contact damage
 var damage_timer: float = 0.0
 
+func _ready() -> void:
+	player = get_tree().get_first_node_in_group("player")
+
 func _physics_process(delta: float) -> void:
 	if player == null:
+		player = get_tree().get_first_node_in_group("player")
 		return
 
 	var to_player = player.global_position - global_position

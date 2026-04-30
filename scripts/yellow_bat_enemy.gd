@@ -13,8 +13,8 @@ const RECOVER_TIME = 0.6             # Rest after dashing
 const CONTACT_DAMAGE = 20
 const DAMAGE_COOLDOWN = 0.6
 
-@onready var player: CharacterBody2D = $"../player/Archer"
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
+var player: CharacterBody2D
 
 enum State { IDLE, APPROACHING, LOCK_ON, DASHING, RECOVERING }
 var state: State = State.IDLE
@@ -26,8 +26,12 @@ var dash_start: Vector2 = Vector2.ZERO   # Where the dash started
 var damage_timer: float = 0.0
 var bob_time: float = 0.0
 
+func _ready() -> void:
+	player = get_tree().get_first_node_in_group("player")
+
 func _physics_process(delta: float) -> void:
 	if player == null:
+		player = get_tree().get_first_node_in_group("player")
 		return
 
 	var to_player = player.global_position - global_position

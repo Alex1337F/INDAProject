@@ -12,8 +12,8 @@ const TELEPORT_RADIUS = 50.0
 const CONTACT_DAMAGE = 15
 const DAMAGE_COOLDOWN = 1.0
 
-@onready var player: CharacterBody2D = $"../player/Archer"
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
+var player: CharacterBody2D
 
 var teleport_timer: float = 0.0
 var damage_timer: float = 0.0
@@ -28,9 +28,11 @@ const FADE_IN_TIME = 0.2
 
 func _ready() -> void:
 	teleport_timer = randf_range(TELEPORT_INTERVAL_MIN, TELEPORT_INTERVAL_MAX)
+	player = get_tree().get_first_node_in_group("player")
 
 func _physics_process(delta: float) -> void:
 	if player == null:
+		player = get_tree().get_first_node_in_group("player")
 		return
 
 	var to_player = player.global_position - global_position
