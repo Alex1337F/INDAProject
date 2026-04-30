@@ -1,5 +1,8 @@
 [gd_scene format=3 uid="uid://cj5m5cmg6vwjg"]
 
+[ext_resource type="Texture2D" uid="uid://cljmwi2vjptnj" path="res://assets/sprites/GUI/UI books & more.png" id="1_sqcr3"]
+[ext_resource type="Texture2D" uid="uid://di1tbtb7i36g0" path="res://assets/sprites/selfmade-sprites/ARROW.png" id="2_hunyf"]
+
 [node name="Upgrades" type="Control" unique_id=135920479]
 layout_mode = 3
 anchors_preset = 15
@@ -7,3 +10,27 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1105406028]
+position = Vector2(582, 332)
+scale = Vector2(11.0625, 11.0625)
+texture = ExtResource("1_sqcr3")
+region_enabled = true
+region_rect = Rect2(16, 176, 95, 48)
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=43292032]
+position = Vector2(305, 158.99998)
+scale = Vector2(12.609374, 10.359373)
+texture = ExtResource("2_hunyf")
+
+[node name="Label" type="Label" parent="." unique_id=1575927015]
+layout_mode = 0
+offset_left = 204.0
+offset_top = 207.0
+offset_right = 405.73914
+offset_bottom = 323.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+text = "Firerate"
