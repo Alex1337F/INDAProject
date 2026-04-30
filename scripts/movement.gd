@@ -19,8 +19,8 @@ var is_invincible = false
 var is_dead = false
 var invincibility_timer: float = 0.0
 var spawn_position: Vector2
-const INVINCIBILITY_DURATION = 0.8  # Seconds of invincibility after being hit
-const RESPAWN_DELAY = 1.2           # Seconds before respawning
+const INVINCIBILITY_DURATION = 0.8 # Seconds of invincibility after being hit
+const RESPAWN_DELAY = 1.2 # Seconds before respawning
 func register_sprite(sprite: AnimatedSprite2D) -> void:
 	anim = sprite
 
@@ -146,7 +146,7 @@ func _respawn() -> void:
 	# Un-die
 	is_dead = false
 	is_invincible = true
-	invincibility_timer = INVINCIBILITY_DURATION * 2  # Extra invincibility on respawn
+	invincibility_timer = INVINCIBILITY_DURATION * 2 # Extra invincibility on respawn
 
 	# Fade back in
 	var spawn_tween = create_tween()

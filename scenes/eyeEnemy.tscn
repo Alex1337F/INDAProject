@@ -142,8 +142,7 @@ animations = [{
 radius = 7.0
 
 [node name="EyeEnemy" type="CharacterBody2D" unique_id=1775067585]
-collision_layer = 4
-collision_mask = 1
+collision_layer = 8
 script = ExtResource("1_l5jda")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2025287088]
