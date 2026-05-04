@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b5estdy26diku" path="res://scripts/game.gd" id="1_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://8kw3ni6v5lr1" path="res://assets/sprites/RavenFantasy/All Tileset/16x16.png" id="2_yqjtg"]
+[ext_resource type="PackedScene" uid="uid://cj5m5cmg6vwjg" path="res://scenes/Upgrades.tscn" id="4_vtaks"]
 [ext_resource type="PackedScene" uid="uid://s3aesa7adavn" path="res://scenes/hud.tscn" id="5_iywne"]
 [ext_resource type="Script" uid="uid://b3rfpo0bmet6l" path="res://scripts/player_camera.gd" id="6_p57ef"]
 [ext_resource type="PackedScene" uid="uid://cphlwx8m1g7nc" path="res://scenes/YellowBatEnemy.tscn" id="7_u5sy4"]
@@ -481,6 +482,8 @@ tile_map_data = PackedByteArray("AAD2//3/AAAAAAUAAAD2//7/AAAAAAYAAAD2////AAAAAAc
 tile_set = SubResource("TileSet_lbhrr")
 
 [node name="HUD" parent="." unique_id=542469217 instance=ExtResource("5_iywne")]
+
+[node name="Upgrades" parent="HUD" unique_id=135920479 instance=ExtResource("4_vtaks")]
 
 [node name="Node2D" type="Node2D" parent="." unique_id=1293062890]
 

@@ -95,7 +95,10 @@ func _physics_process(delta: float) -> void:
 func take_damage(amount: int) -> void:
 	if is_invincible or is_dead:
 		return
-	current_health = max(current_health - amount, 0)
+	# Apply defence upgrade (reduces damage taken)
+	var def_mult: float = GameState.get_meta("defence_multiplier", 1.0) if GameState.has_meta("defence_multiplier") else 1.0
+	var final_damage: int = maxi(roundi(amount * def_mult), 1)
+	current_health = max(current_health - final_damage, 0)
 	health_changed.emit(current_health, MAX_HEALTH)
 	# Start invincibility
 	is_invincible = true
