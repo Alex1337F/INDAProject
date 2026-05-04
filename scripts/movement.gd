@@ -30,6 +30,9 @@ func _ready() -> void:
 	spawn_position = global_position
 	health_changed.emit(current_health, MAX_HEALTH)
 
+func get_effective_speed() -> float:
+	return SPEED * GameState.get_multiplier("speed")
+
 func _physics_process(delta: float) -> void:
 	if is_dead:
 		return
@@ -62,7 +65,7 @@ func _physics_process(delta: float) -> void:
 			dash_timer -= delta
 			velocity = dash_direction * DASH_SPEED
 		else:
-			velocity = direction * SPEED
+			velocity = direction * get_effective_speed()
 
 		# Animations
 		if velocity != Vector2.ZERO:
@@ -92,10 +95,19 @@ func _physics_process(delta: float) -> void:
 			is_invincible = false
 			anim.modulate.a = 1.0
 
+func _unhandled_input(event: InputEvent) -> void:
+	# Debug: P gives 50 coins
+	if event is InputEventKey and event.pressed and not event.echo:
+		if event.physical_keycode == KEY_P:
+			GameState.add_coins(50)
+
 func take_damage(amount: int) -> void:
 	if is_invincible or is_dead:
 		return
-	current_health = max(current_health - amount, 0)
+	# Apply defence multiplier (each level reduces damage by 10%)
+	var reduced = int(ceil(float(amount) * GameState.get_multiplier("defence")))
+	reduced = max(reduced, 0)
+	current_health = max(current_health - reduced, 0)
 	health_changed.emit(current_health, MAX_HEALTH)
 	# Start invincibility
 	is_invincible = true

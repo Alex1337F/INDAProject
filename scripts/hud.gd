@@ -16,12 +16,20 @@ var original_bar_pos: Vector2
 var heart_pulse_tween: Tween
 var is_low_health: bool = false
 
+# --- Upgrade stat display ---
+var stat_container: HBoxContainer
+
 func _ready() -> void:
 	original_bar_pos = bar_container.position
 
 	# --- Coin counter ---
 	GameState.coins_changed.connect(_on_coins_changed)
 	_on_coins_changed(GameState.coins)
+
+	# --- Build upgrade stats strip ---
+	_build_stat_strip()
+	GameState.upgrades_changed.connect(_refresh_stats)
+	_refresh_stats()
 
 	# Wait one frame so game.gd has time to spawn the player
 	await get_tree().process_frame
@@ -36,6 +44,50 @@ func _ready() -> void:
 		damage_bar.max_value = player.MAX_HEALTH
 		damage_bar.value = player.current_health
 		_on_health_changed(player.current_health, player.MAX_HEALTH)
+
+func _build_stat_strip() -> void:
+	stat_container = HBoxContainer.new()
+	stat_container.anchors_preset = Control.PRESET_BOTTOM_LEFT
+	stat_container.set_anchors_preset(Control.PRESET_BOTTOM_LEFT)
+	stat_container.position = Vector2(12, -48)
+	stat_container.add_theme_constant_override("separation", 16)
+	add_child(stat_container)
+
+	_add_stat_icon("⚔", "attack",   Color(1.0, 0.35, 0.25))
+	_add_stat_icon("🛡", "defence",  Color(0.3, 0.6, 1.0))
+	_add_stat_icon("⚡", "speed",    Color(1.0, 0.85, 0.2))
+	_add_stat_icon("🏹", "firerate", Color(0.5, 1.0, 0.5))
+
+func _add_stat_icon(icon_text: String, stat: String, color: Color) -> void:
+	var hbox = HBoxContainer.new()
+	hbox.add_theme_constant_override("separation", 2)
+
+	var icon = Label.new()
+	icon.text = icon_text
+	icon.add_theme_font_size_override("font_size", 18)
+	icon.add_theme_color_override("font_color", color)
+	hbox.add_child(icon)
+
+	var lbl = Label.new()
+	lbl.name = "Stat_" + stat
+	lbl.add_theme_font_size_override("font_size", 14)
+	lbl.add_theme_color_override("font_color", Color(0.9, 0.9, 0.9))
+	hbox.add_child(lbl)
+
+	stat_container.add_child(hbox)
+
+func _refresh_stats() -> void:
+	if not stat_container:
+		return
+	for stat in ["attack", "defence", "speed", "firerate"]:
+		var lbl = stat_container.find_child("Stat_" + stat, true, false)
+		if lbl:
+			var level = GameState.upgrade_levels[stat]
+			var pct = level * 10
+			if stat == "defence":
+				lbl.text = "Lv%d -%d%%" % [level, pct]
+			else:
+				lbl.text = "Lv%d +%d%%" % [level, pct]
 
 func _process(delta: float) -> void:
 	# Shake decay

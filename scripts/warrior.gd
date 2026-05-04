@@ -3,6 +3,8 @@ extends PlayerBase
 @onready var _sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var attack_area: Area2D = $AttackArea
 
+const BASE_DAMAGE: int = 25
+
 func _ready() -> void:
 	register_sprite(_sprite)
 	super._ready()
@@ -18,6 +20,9 @@ func _process(delta: float) -> void:
 		attack("attack-forward", false, Vector2.UP)
 	elif Input.is_action_just_pressed("aim-down"):
 		attack("attack-backwards", false, Vector2.DOWN)
+
+func get_attack_damage() -> int:
+	return int(ceil(float(BASE_DAMAGE) * GameState.get_multiplier("attack")))
 
 func attack(anim_name: String, flip: bool, direction: Vector2) -> void:
 	is_attacking = true
@@ -42,4 +47,4 @@ func _do_attack(attack_direction: Vector2) -> void:
 			var to_enemy = (body.global_position - global_position).normalized()
 			var dot = attack_direction.dot(to_enemy)
 			if dot > 0:
-				body.take_damage(25, global_position)  # Pass global_position here
+				body.take_damage(get_attack_damage(), global_position)
