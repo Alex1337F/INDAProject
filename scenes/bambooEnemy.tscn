@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cos2ohgh8nh7b"]
 
 [ext_resource type="Texture2D" uid="uid://7buefonvx7ue" path="res://assets/sprites/characters/BambooEnemy/SpriteSheet.png" id="1_j70ur"]
-[ext_resource type="Script" path="res://scripts/bamboo_enemy.gd" id="2_bamboo"]
+[ext_resource type="Script" uid="uid://50gcv1kutbx2" path="res://scripts/bamboo_enemy.gd" id="2_bamboo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p4edm"]
 atlas = ExtResource("1_j70ur")
@@ -143,8 +143,7 @@ radius = 5.0
 height = 16.0
 
 [node name="BambooEnemy" type="CharacterBody2D" unique_id=147720322]
-collision_layer = 4
-collision_mask = 1
+collision_layer = 8
 script = ExtResource("2_bamboo")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1863071370]

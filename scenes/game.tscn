@@ -1,11 +1,15 @@
 [gd_scene format=4 uid="uid://dxry2v4pw3d2v"]
 
 [ext_resource type="Script" uid="uid://b5estdy26diku" path="res://scripts/game.gd" id="1_u5sy4"]
+[ext_resource type="PackedScene" uid="uid://c0gvygpxb1nbo" path="res://scenes/eyeEnemy.tscn" id="2_0tnpc"]
 [ext_resource type="Texture2D" uid="uid://8kw3ni6v5lr1" path="res://assets/sprites/RavenFantasy/All Tileset/16x16.png" id="2_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://cj5m5cmg6vwjg" path="res://scenes/Upgrades.tscn" id="4_vtaks"]
 [ext_resource type="PackedScene" uid="uid://s3aesa7adavn" path="res://scenes/hud.tscn" id="5_iywne"]
 [ext_resource type="Script" uid="uid://b3rfpo0bmet6l" path="res://scripts/player_camera.gd" id="6_p57ef"]
+[ext_resource type="PackedScene" uid="uid://dy4hw3as5u5te" path="res://scenes/enemy.tscn" id="6_u5sy4"]
 [ext_resource type="PackedScene" uid="uid://cphlwx8m1g7nc" path="res://scenes/YellowBatEnemy.tscn" id="7_u5sy4"]
+[ext_resource type="PackedScene" uid="uid://ybefxn3cm6g6" path="res://scenes/skeletonEnemy.tscn" id="8_vtaks"]
+[ext_resource type="PackedScene" uid="uid://cos2ohgh8nh7b" path="res://scenes/bambooEnemy.tscn" id="9_kvpfn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
 texture = ExtResource("2_yqjtg")
@@ -491,5 +495,12 @@ tile_set = SubResource("TileSet_lbhrr")
 zoom = Vector2(4, 4)
 script = ExtResource("6_p57ef")
 
+[node name="enemy" parent="." unique_id=1039766219 instance=ExtResource("6_u5sy4")]
+
+[node name="EyeEnemy" parent="." unique_id=1775067585 instance=ExtResource("2_0tnpc")]
+
 [node name="YellowBatEnemy" parent="." unique_id=275462408 instance=ExtResource("7_u5sy4")]
-position = Vector2(-69, -3)
+
+[node name="SkeletonEnemy" parent="." unique_id=1157250381 instance=ExtResource("8_vtaks")]
+
+[node name="BambooEnemy" parent="." unique_id=147720322 instance=ExtResource("9_kvpfn")]

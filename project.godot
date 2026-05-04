@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 GameState="*uid://cei5bjmyyjy7m"
 
+[gui]
+
+theme/custom="res://assets/default_theme.tres"
+
 [input]
 
 walk-forward={
