@@ -2,33 +2,35 @@ extends Control
 
 # Icons (for hover/click animations)
 @onready var _icons: Dictionary = {
-	"firerate": $FirerateIcon,
-	"speed": $SpeedIcon,
-	"attack": $AttackIcon,
-	"defence": $DefenceIcon,
+	"firerate": $Book/FirerateIcon,
+	"speed": $Book/SpeedIcon,
+	"attack": $Book/AttackIcon,
+	"defence": $Book/DefenceIcon,
 }
 
 # Price labels (the "10" next to the coin)
 @onready var _price_labels: Dictionary = {
-	"firerate": $FireratePrice,
-	"speed": $SpeedPrice,
-	"attack": $AttackPrice,
-	"defence": $DefencePrice,
+	"firerate": $Book/FireratePrice,
+	"speed": $Book/SpeedPrice,
+	"attack": $Book/AttackPrice,
+	"defence": $Book/DefencePrice,
 }
 
 # Level labels (the "0" showing current level)
 @onready var _level_labels: Dictionary = {
-	"firerate": $FirerateLevel,
-	"speed": $SpeedLevel,
-	"attack": $AttackLevel,
-	"defence": $DefenceLevel,
+	"firerate": $Book/FirerateLevel,
+	"speed": $Book/SpeedLevel,
+	"attack": $Book/AttackLevel,
+	"defence": $Book/DefenceLevel,
 }
 
 var _icon_buttons: Dictionary = {}
 var _icon_base_scales: Dictionary = {}
 
 func _ready() -> void:
-	visible = false
+	$Book.visible = false
+	if has_node("Blur shader"):
+		$"Blur shader".visible = false
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
 	# Save original icon scales for hover animation
@@ -77,8 +79,10 @@ func _input(event: InputEvent) -> void:
 			get_viewport().set_input_as_handled()
 
 func _toggle_menu() -> void:
-	visible = !visible
-	get_tree().paused = visible
+	$Book.visible = !$Book.visible
+	if has_node("Blur shader"):
+		$"Blur shader".visible = $Book.visible
+	get_tree().paused = $Book.visible
 
 func _on_icon_hover(stat: String, hovering: bool) -> void:
 	var icon = _icons[stat]

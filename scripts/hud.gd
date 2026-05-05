@@ -188,9 +188,10 @@ func _on_coins_changed(total: int) -> void:
 	coin_label.text = str(total)
 	# Pop animation on the icon
 	var pop = create_tween()
-	coin_icon.scale = Vector2(1.0, 1.0)
-	pop.tween_property(coin_icon, "scale", Vector2(1.5, 1.5), 0.1).set_ease(Tween.EASE_OUT)
-	pop.tween_property(coin_icon, "scale", Vector2(1.0, 1.0), 0.15).set_ease(Tween.EASE_IN)
+	var base_scale = Vector2(2.285, 2.285) # Base scale from editor
+	coin_icon.scale = base_scale
+	pop.tween_property(coin_icon, "scale", base_scale * 1.5, 0.1).set_ease(Tween.EASE_OUT)
+	pop.tween_property(coin_icon, "scale", base_scale, 0.15).set_ease(Tween.EASE_IN)
 	# Brief golden flash on the label
 	coin_label.modulate = Color(1.0, 1.0, 0.4)
 	var flash = create_tween()
