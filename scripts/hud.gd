@@ -3,12 +3,12 @@ extends CanvasLayer
 @onready var health_bar: ProgressBar = $HealthBarContainer/BarArea/HealthBar
 @onready var damage_bar: ProgressBar = $HealthBarContainer/BarArea/DamageBar
 @onready var health_label: Label = $HealthBarContainer/BarArea/HealthLabel
-@onready var heart_icon: Label = $HealthBarContainer/HeartIcon
+@onready var heart_icon: TextureRect = $HealthBarContainer/HeartIcon
 @onready var bar_container: Control = $HealthBarContainer
 
 # Coin HUD
 @onready var coin_label: Label = $CoinContainer/Panel/HBox/CoinLabel
-@onready var coin_icon: Label = $CoinContainer/Panel/HBox/CoinIcon
+@onready var coin_icon: Sprite2D = $CoinContainer/Panel/HBox/CoinIcon
 
 var previous_health: int = 100
 var shake_intensity: float = 0.0
@@ -129,15 +129,16 @@ func _on_health_changed(current_hp: int, max_hp: int) -> void:
 
 		# --- Heart icon bounce ---
 		var heart_tween = create_tween()
-		heart_icon.scale = Vector2(1.0, 1.0)
-		heart_tween.tween_property(heart_icon, "scale", Vector2(1.6, 1.6), 0.08)
-		heart_tween.tween_property(heart_icon, "scale", Vector2(0.85, 0.85), 0.1)
-		heart_tween.tween_property(heart_icon, "scale", Vector2(1.0, 1.0), 0.15)
+		var heart_base_scale = Vector2(0.675, 0.675)
+		heart_icon.scale = heart_base_scale
+		heart_tween.tween_property(heart_icon, "scale", heart_base_scale * 1.6, 0.08)
+		heart_tween.tween_property(heart_icon, "scale", heart_base_scale * 0.85, 0.1)
+		heart_tween.tween_property(heart_icon, "scale", heart_base_scale, 0.15)
 	else:
 		# Healing / respawn – damage bar catches up immediately
 		damage_bar.value = current_hp
 		# Reset heart icon (in case we respawned after death)
-		heart_icon.modulate = Color(0.95, 0.25, 0.25, 1.0)
+		heart_icon.modulate = Color.WHITE
 
 	# --- Update label ---
 	health_label.text = str(current_hp) + " / " + str(max_hp)

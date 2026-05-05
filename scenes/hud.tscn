@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://s3aesa7adavn"]
 
 [ext_resource type="Script" uid="uid://dxarlxfoiasco" path="res://scripts/hud.gd" id="1_hud"]
+[ext_resource type="Texture2D" uid="uid://djdqc68rqg7l4" path="res://assets/sprites/Ui/Receptacle/IconHeart.png" id="2_5ysmq"]
+[ext_resource type="Texture2D" uid="uid://bjefdlff7qeaj" path="res://assets/sprites/Ui/Ironchests_RPG_items_pico8_transparentbg_v1.png" id="3_6fi6k"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
 bg_color = Color(0.08, 0.08, 0.08, 0.9)
@@ -54,21 +56,21 @@ script = ExtResource("1_hud")
 [node name="HealthBarContainer" type="Control" parent="." unique_id=867075034]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 12.0
-offset_top = 8.0
-offset_right = 232.0
-offset_bottom = 36.0
+offset_left = 24.0
+offset_top = 6.0
+offset_right = 244.0
+offset_bottom = 34.0
+scale = Vector2(2, 2)
 
-[node name="HeartIcon" type="Label" parent="HealthBarContainer" unique_id=1806896143]
-layout_mode = 1
-offset_left = -9.0
-offset_top = -7.0
-offset_right = 22.0
-offset_bottom = 35.0
-theme_override_colors/font_color = Color(0.95, 0.25, 0.25, 1)
-theme_override_font_sizes/font_size = 30
-text = "♥"
-vertical_alignment = 1
+[node name="HeartIcon" type="TextureRect" parent="HealthBarContainer" unique_id=453893481]
+z_index = 1
+layout_mode = 0
+offset_left = -7.5
+offset_top = 1.0
+offset_right = 32.5
+offset_bottom = 41.0
+scale = Vector2(0.675, 0.675)
+texture = ExtResource("2_5ysmq")
 
 [node name="BarArea" type="Control" parent="HealthBarContainer" unique_id=443099732]
 layout_mode = 1
@@ -117,23 +119,24 @@ text = "100 / 100"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CoinContainer" type="HBoxContainer" parent="."]
+[node name="CoinContainer" type="HBoxContainer" parent="." unique_id=93310896]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -120.0
-offset_top = 8.0
-offset_right = -12.0
-offset_bottom = 42.0
+offset_left = -220.0
+offset_top = 9.0
+offset_right = -112.0
+offset_bottom = 43.0
 grow_horizontal = 0
+scale = Vector2(2, 2)
 theme_override_constants/separation = 4
 
-[node name="Panel" type="Panel" parent="CoinContainer"]
+[node name="Panel" type="Panel" parent="CoinContainer" unique_id=1313363032]
 custom_minimum_size = Vector2(108, 34)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_coin_bg")
 
-[node name="HBox" type="HBoxContainer" parent="CoinContainer/Panel"]
+[node name="HBox" type="HBoxContainer" parent="CoinContainer/Panel" unique_id=1966994398]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -145,14 +148,14 @@ grow_vertical = 2
 theme_override_constants/separation = 4
 alignment = 1
 
-[node name="CoinIcon" type="Label" parent="CoinContainer/Panel/HBox"]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.85, 0.2, 1)
-theme_override_font_sizes/font_size = 22
-text = "●"
-vertical_alignment = 1
+[node name="CoinIcon" type="Sprite2D" parent="CoinContainer/Panel/HBox" unique_id=26001558]
+position = Vector2(87, 17.5)
+scale = Vector2(2.285, 2.285)
+texture = ExtResource("3_6fi6k")
+region_enabled = true
+region_rect = Rect2(312, 632, 7, 7)
 
-[node name="CoinLabel" type="Label" parent="CoinContainer/Panel/HBox"]
+[node name="CoinLabel" type="Label" parent="CoinContainer/Panel/HBox" unique_id=1792632993]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(1, 0.92, 0.5, 1)
@@ -162,3 +165,6 @@ theme_override_constants/shadow_offset_y = 1
 theme_override_font_sizes/font_size = 16
 text = "0"
 vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CoinContainer" unique_id=655883047]
+layout_mode = 2
