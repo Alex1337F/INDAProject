@@ -1,61 +1,46 @@
 extends Control
 
-# Existing labels from the scene
-@onready var firerate_label: Label = $FirerateLabel
-@onready var speed_label: Label    = $SpeedLabel
-@onready var attack_label: Label   = $AttackLabel
-@onready var defence_label: Label  = $DefenceLabel
-
-# Icon sprites from the scene
-@onready var firerate_icon: Sprite2D = $FirerateIcon
-@onready var speed_icon: Sprite2D    = $IronchestsRpgItemsPico8TransparentbgV1
-@onready var attack_icon: Sprite2D   = $AttackIcon
-@onready var defence_icon: Sprite2D  = $DefenceIcon
-
-var _level_labels: Dictionary = {}   # stat → Label
-var _cost_labels: Dictionary = {}    # stat → Label
-var _icon_buttons: Dictionary = {}   # stat → Button
-var _icons: Dictionary = {}          # stat → Sprite2D
-var _icon_base_scales: Dictionary = {}  # stat → original scale
-
-# Map stat → icon position (center), used for placing labels below icons
-const LABEL_OFFSETS = {
-	"firerate": Vector2(204, 280),
-	"speed":    Vector2(790, 310),
-	"attack":   Vector2(193, 540),
-	"defence":  Vector2(760, 540),
+# Icons (for hover/click animations)
+@onready var _icons: Dictionary = {
+	"firerate": $FirerateIcon,
+	"speed": $SpeedIcon,
+	"attack": $AttackIcon,
+	"defence": $DefenceIcon,
 }
+
+# Price labels (the "10" next to the coin)
+@onready var _price_labels: Dictionary = {
+	"firerate": $FireratePrice,
+	"speed": $SpeedPrice,
+	"attack": $AttackPrice,
+	"defence": $DefencePrice,
+}
+
+# Level labels (the "0" showing current level)
+@onready var _level_labels: Dictionary = {
+	"firerate": $FirerateLevel,
+	"speed": $SpeedLevel,
+	"attack": $AttackLevel,
+	"defence": $DefenceLevel,
+}
+
+var _icon_buttons: Dictionary = {}
+var _icon_base_scales: Dictionary = {}
 
 func _ready() -> void:
 	visible = false
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
-	# Keep original labels as just the stat name
-	firerate_label.text = "Firerate"
-	speed_label.text = "Speed"
-	attack_label.text = "Attack"
-	defence_label.text = "Defence"
-
-	# Map stats to their icons
-	_icons = {
-		"firerate": firerate_icon,
-		"speed":    speed_icon,
-		"attack":   attack_icon,
-		"defence":  defence_icon,
-	}
-
-	# Save original scales for hover animation
+	# Save original icon scales for hover animation
 	for stat in _icons:
 		_icon_base_scales[stat] = _icons[stat].scale
 
-	# Create clickable overlay + labels for each stat
+	# Create invisible clickable buttons over each icon
 	for stat in _icons:
 		var icon: Sprite2D = _icons[stat]
 		var base_scale: Vector2 = _icon_base_scales[stat]
 
-		# --- Invisible button over the icon ---
 		var btn = Button.new()
-		# Calculate icon pixel size on screen
 		var tex = icon.texture
 		var region_size: Vector2
 		if icon.region_enabled:
@@ -65,9 +50,8 @@ func _ready() -> void:
 		var icon_screen_size = region_size * base_scale
 		btn.custom_minimum_size = icon_screen_size
 		btn.size = icon_screen_size
-		# Position: icon.position is center, button uses top-left
 		btn.position = icon.position - icon_screen_size / 2.0
-		# Make the button fully transparent
+
 		var empty_style = StyleBoxFlat.new()
 		empty_style.bg_color = Color(0, 0, 0, 0)
 		empty_style.set_border_width_all(0)
@@ -75,28 +59,12 @@ func _ready() -> void:
 			btn.add_theme_stylebox_override(style_name, empty_style)
 		btn.flat = true
 		btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-		# Connect signals
+
 		btn.pressed.connect(_on_upgrade_pressed.bind(stat))
 		btn.mouse_entered.connect(_on_icon_hover.bind(stat, true))
 		btn.mouse_exited.connect(_on_icon_hover.bind(stat, false))
 		add_child(btn)
 		_icon_buttons[stat] = btn
-
-		# --- Level label below the stat name ---
-		var lbl = Label.new()
-		lbl.add_theme_font_size_override("font_size", 26)
-		lbl.add_theme_color_override("font_color", Color(0.15, 0.1, 0.05))
-		lbl.position = LABEL_OFFSETS[stat]
-		add_child(lbl)
-		_level_labels[stat] = lbl
-
-		# --- Cost label below the level ---
-		var cost_lbl = Label.new()
-		cost_lbl.add_theme_font_size_override("font_size", 20)
-		cost_lbl.add_theme_color_override("font_color", Color(0.35, 0.25, 0.1))
-		cost_lbl.position = LABEL_OFFSETS[stat] + Vector2(0, 34)
-		add_child(cost_lbl)
-		_cost_labels[stat] = cost_lbl
 
 	GameState.upgrades_changed.connect(_refresh_ui)
 	GameState.coins_changed.connect(func(_c): _refresh_ui())
@@ -134,34 +102,21 @@ func _on_upgrade_pressed(stat: String) -> void:
 func _refresh_ui() -> void:
 	for stat in _icons:
 		var level = GameState.upgrade_levels[stat]
-		var pct = level * 10
 
-		# Level text
-		var lbl = _level_labels[stat]
-		if stat == "defence":
-			lbl.text = "Lv %d  (-%d%%)" % [level, pct]
-		else:
-			lbl.text = "Lv %d  (+%d%%)" % [level, pct]
+		# Update level label
+		_level_labels[stat].text = str(level)
 
-		# Cost text
-		var cost_lbl = _cost_labels[stat]
+		# Update price label
 		if level >= GameState.MAX_UPGRADE_LEVEL:
-			cost_lbl.text = "MAXED"
-			cost_lbl.add_theme_color_override("font_color", Color(0.6, 0.45, 0.1))
+			_price_labels[stat].text = "MAX"
 		else:
-			var cost = GameState.get_upgrade_cost(stat)
-			if GameState.coins >= cost:
-				cost_lbl.text = "Cost: %d ●" % cost
-				cost_lbl.add_theme_color_override("font_color", Color(0.15, 0.4, 0.1))
-			else:
-				cost_lbl.text = "Cost: %d ●" % cost
-				cost_lbl.add_theme_color_override("font_color", Color(0.5, 0.2, 0.1))
+			_price_labels[stat].text = str(GameState.get_upgrade_cost(stat))
 
 		# Dim the icon if can't afford or maxed
 		var icon = _icons[stat]
 		if level >= GameState.MAX_UPGRADE_LEVEL:
-			icon.modulate = Color(1.0, 0.9, 0.4)  # Golden tint for maxed
+			icon.modulate = Color(1.0, 0.9, 0.4) # Golden tint for maxed
 		elif GameState.coins < GameState.get_upgrade_cost(stat):
-			icon.modulate = Color(0.5, 0.5, 0.5)  # Grey out if too expensive
+			icon.modulate = Color(0.5, 0.5, 0.5) # Grey out if too expensive
 		else:
-			icon.modulate = Color.WHITE  # Normal
+			icon.modulate = Color.WHITE
