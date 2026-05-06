@@ -19,6 +19,7 @@ var wiggle_time: float = 0.0
 var is_dead: bool = false
 var current_health: int = MAX_HEALTH
 var is_knockback: bool = false
+var health_bar: Node2D
 
 var hands_base_pos: Vector2
 var hands2_base_pos: Vector2
@@ -39,11 +40,21 @@ func _ready() -> void:
 	bone_base_pos = bone.position
 	bone_base_rot = bone.rotation
 	player = get_tree().get_first_node_in_group("player")
+	_create_health_bar()
+
+func _create_health_bar() -> void:
+	var hb_script = preload("res://scripts/enemy_health_bar.gd")
+	health_bar = Node2D.new()
+	health_bar.set_script(hb_script)
+	add_child(health_bar)
+	health_bar.setup(MAX_HEALTH, -20.0)
 
 func take_damage(amount: int, knockback_origin: Vector2) -> void:
 	if is_dead:
 		return
 	current_health -= amount
+	if health_bar:
+		health_bar.update_health(current_health, MAX_HEALTH)
 	var knockback_dir = (global_position - knockback_origin).normalized()
 	velocity = knockback_dir * KNOCKBACK_FORCE
 	is_knockback = true
