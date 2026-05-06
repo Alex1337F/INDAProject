@@ -48,7 +48,8 @@ text = "Upgrades
 "
 
 [node name="BookBackground" type="Sprite2D" parent="Book" unique_id=1105406028]
-position = Vector2(641.46875, 341.5)
+z_index = -1
+position = Vector2(641, 342)
 scale = Vector2(11.0625, 11.0625)
 texture = ExtResource("1_sqcr3")
 region_enabled = true

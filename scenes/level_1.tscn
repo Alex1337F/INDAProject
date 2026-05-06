@@ -1,4 +1,4 @@
-[gd_scene format=4 uid="uid://damm2jnoj6oyg"]
+[gd_scene format=4 uid="uid://dij646esv88wu"]
 
 [ext_resource type="Texture2D" uid="uid://8kw3ni6v5lr1" path="res://assets/sprites/RavenFantasy/All Tileset/16x16.png" id="1_bswci"]
 [ext_resource type="Script" uid="uid://b5estdy26diku" path="res://scripts/game.gd" id="1_rus8k"]
@@ -435,4 +435,5 @@ tile_set = SubResource("TileSet_4nkto")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=109513415]
 zoom = Vector2(4, 4)
+position_smoothing_enabled = true
 script = ExtResource("2_rus8k")
