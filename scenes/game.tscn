@@ -10,8 +10,9 @@
 [ext_resource type="PackedScene" uid="uid://cphlwx8m1g7nc" path="res://scenes/YellowBatEnemy.tscn" id="7_u5sy4"]
 [ext_resource type="PackedScene" uid="uid://ybefxn3cm6g6" path="res://scenes/skeletonEnemy.tscn" id="8_vtaks"]
 [ext_resource type="PackedScene" uid="uid://cos2ohgh8nh7b" path="res://scenes/bambooEnemy.tscn" id="9_kvpfn"]
+[ext_resource type="PackedScene" uid="uid://8yfu7mpc5a34" path="res://scenes/scene_transition.tscn" id="11_kvpfn"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dinhu"]
 texture = ExtResource("2_yqjtg")
 0:0/0 = 0
 1:0/0 = 0
@@ -468,7 +469,7 @@ texture = ExtResource("2_yqjtg")
 
 [sub_resource type="TileSet" id="TileSet_lbhrr"]
 physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_lnu2h")
+sources/0 = SubResource("TileSetAtlasSource_dinhu")
 
 [node name="Game" type="Node2D" unique_id=157234959]
 script = ExtResource("1_u5sy4")
@@ -504,3 +505,8 @@ script = ExtResource("6_p57ef")
 [node name="SkeletonEnemy" parent="." unique_id=1157250381 instance=ExtResource("8_vtaks")]
 
 [node name="BambooEnemy" parent="." unique_id=147720322 instance=ExtResource("9_kvpfn")]
+
+[node name="SceneTransition" parent="." unique_id=1854889875 instance=ExtResource("11_kvpfn")]
+position = Vector2(369, -288)
+idle_animation = "default"
+open_animation = "default"

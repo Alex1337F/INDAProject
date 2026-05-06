@@ -46,4 +46,3 @@ func _on_archer_button_pressed() -> void:
 
 func _on_warrior_button_pressed() -> void:
 	pass # Replace with function body.
-

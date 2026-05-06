@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://8yfu7mpc5a34"]
+
+[ext_resource type="Script" uid="uid://bo7plpa3hdbjt" path="res://scripts/teleport.gd" id="1_rujfs"]
+[ext_resource type="Texture2D" uid="uid://cm1son4hfhi72" path="res://assets/sprites/selfmade-sprites/teleporter.png" id="2_2sgj6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hgfgv"]
+radius = 9.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_85h84"]
+atlas = ExtResource("2_2sgj6")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ooyqd"]
+atlas = ExtResource("2_2sgj6")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_non66"]
+atlas = ExtResource("2_2sgj6")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h8vuu"]
+atlas = ExtResource("2_2sgj6")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l5v6o"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_85h84")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ooyqd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_non66")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h8vuu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="SceneTransition" type="Area2D" unique_id=1854889875]
+z_index = 10
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("1_rujfs")
+target_scene = "res://scenes/level_1.tscn"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=925365254]
+shape = SubResource("CircleShape2D_hgfgv")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2012057914]
+z_index = 10
+sprite_frames = SubResource("SpriteFrames_l5v6o")
+frame_progress = 0.74235487

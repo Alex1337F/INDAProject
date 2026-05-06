@@ -294,8 +294,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fvbna"]
-radius = 7.0
-height = 20.0
+radius = 6.0
+height = 12.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fvbna"]
 radius = 26.019224
@@ -309,14 +309,15 @@ sprite_frames = SubResource("SpriteFrames_u37hl")
 animation = &"attack-backwards"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=273091968]
-position = Vector2(0, 9)
+position = Vector2(0, 12)
 shape = SubResource("CapsuleShape2D_fvbna")
 
 [node name="AttackArea" type="Area2D" parent="." unique_id=1083347910]
-position = Vector2(0, 9)
+position = Vector2(0, 12)
 collision_layer = 0
 collision_mask = 8
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" unique_id=1447854060]
+position = Vector2(0, -2)
 shape = SubResource("CircleShape2D_fvbna")
