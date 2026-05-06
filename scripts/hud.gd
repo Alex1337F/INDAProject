@@ -10,11 +10,17 @@ extends CanvasLayer
 @onready var coin_label: Label = $CoinContainer/Panel/HBox/CoinLabel
 @onready var coin_icon: Sprite2D = $CoinContainer/Panel/HBox/CoinIcon
 
+# Wave HUD
+@onready var wave_counter: Label = $WaveCounter
+
 var previous_health: int = 100
 var shake_intensity: float = 0.0
 var original_bar_pos: Vector2
 var heart_pulse_tween: Tween
 var is_low_health: bool = false
+
+# Wave announcement label (created in code so it's centered + fancy)
+var wave_announce_label: Label
 
 # --- Upgrade stat display ---
 var stat_container: HBoxContainer
@@ -31,6 +37,12 @@ func _ready() -> void:
 	GameState.upgrades_changed.connect(_refresh_stats)
 	_refresh_stats()
 
+	# --- Wave counter initial state ---
+	wave_counter.text = ""
+
+	# --- Create the big centered wave announcement label ---
+	_create_wave_announcement_label()
+
 	# Wait one frame so game.gd has time to spawn the player
 	await get_tree().process_frame
 	# Find the player node (dynamically spawned) via group
@@ -44,6 +56,85 @@ func _ready() -> void:
 		damage_bar.max_value = player.MAX_HEALTH
 		damage_bar.value = player.current_health
 		_on_health_changed(player.current_health, player.MAX_HEALTH)
+
+	# Connect to the wave manager
+	await get_tree().process_frame
+	var wave_mgr = get_tree().get_first_node_in_group("wave_manager")
+	if wave_mgr == null:
+		# Try finding it as a sibling (child of game node)
+		var parent = get_parent()
+		for child in parent.get_children():
+			if child.has_signal("wave_started"):
+				wave_mgr = child
+				break
+	if wave_mgr:
+		if wave_mgr.has_signal("wave_started"):
+			wave_mgr.wave_started.connect(_on_wave_started)
+
+func _create_wave_announcement_label() -> void:
+	wave_announce_label = Label.new()
+	wave_announce_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	wave_announce_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	wave_announce_label.anchors_preset = Control.PRESET_CENTER
+	wave_announce_label.set_anchors_preset(Control.PRESET_CENTER)
+	wave_announce_label.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	wave_announce_label.grow_vertical = Control.GROW_DIRECTION_BOTH
+	wave_announce_label.offset_left = -400
+	wave_announce_label.offset_right = 400
+	wave_announce_label.offset_top = -100
+	wave_announce_label.offset_bottom = 100
+	wave_announce_label.add_theme_font_size_override("font_size", 64)
+	wave_announce_label.add_theme_color_override("font_color", Color(1.0, 0.9, 0.5, 1.0))
+	wave_announce_label.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.8))
+	wave_announce_label.add_theme_constant_override("shadow_offset_x", 3)
+	wave_announce_label.add_theme_constant_override("shadow_offset_y", 3)
+	wave_announce_label.modulate.a = 0.0
+	wave_announce_label.text = ""
+	add_child(wave_announce_label)
+
+func _on_wave_started(wave_number: int, total: int) -> void:
+	# Update the persistent wave counter in the corner
+	wave_counter.text = "Wave: " + str(wave_number) + " / " + str(total)
+
+	# Punch animation on the wave counter
+	var counter_tween = create_tween()
+	wave_counter.scale = Vector2(1.3, 1.3)
+	wave_counter.modulate = Color(1.0, 0.85, 0.3)
+	counter_tween.tween_property(wave_counter, "scale", Vector2(1.0, 1.0), 0.3).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	counter_tween.parallel().tween_property(wave_counter, "modulate", Color.WHITE, 0.5)
+
+	# Big centered announcement
+	_play_wave_announcement(wave_number, total)
+
+func _play_wave_announcement(wave_number: int, total: int) -> void:
+	wave_announce_label.text = "⚔  WAVE " + str(wave_number) + "  ⚔"
+
+	# Reset state
+	wave_announce_label.modulate = Color(1.0, 0.9, 0.5, 0.0)
+	wave_announce_label.scale = Vector2(0.3, 0.3)
+	wave_announce_label.pivot_offset = wave_announce_label.size / 2.0
+
+	var tween = create_tween()
+
+	# Phase 1: Slam in (scale up + fade in)
+	tween.tween_property(wave_announce_label, "modulate:a", 1.0, 0.15).set_ease(Tween.EASE_OUT)
+	tween.parallel().tween_property(wave_announce_label, "scale", Vector2(1.1, 1.1), 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+
+	# Phase 2: Settle to normal scale
+	tween.tween_property(wave_announce_label, "scale", Vector2(1.0, 1.0), 0.1).set_ease(Tween.EASE_IN_OUT)
+
+	# Phase 3: Hold for a moment
+	tween.tween_interval(1.2)
+
+	# Phase 4: Slide up + fade out
+	tween.tween_property(wave_announce_label, "modulate:a", 0.0, 0.5).set_ease(Tween.EASE_IN)
+	tween.parallel().tween_property(wave_announce_label, "position:y", wave_announce_label.position.y - 40, 0.5).set_ease(Tween.EASE_IN)
+
+	# Phase 5: Reset position for next wave
+	await tween.finished
+	wave_announce_label.position.y += 40
+
+# ====== Everything below is unchanged ======
 
 func _build_stat_strip() -> void:
 	stat_container = HBoxContainer.new()
