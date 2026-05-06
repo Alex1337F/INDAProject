@@ -7,6 +7,7 @@ var MAX_HEALTH: int = 60
 var current_health: int
 var is_knockback: bool = false
 var damage_timer: float = 0.0
+var health_bar: Node2D
 
 const KNOCKBACK_FORCE = 400.0
 const KNOCKBACK_DECAY = 10.0
@@ -18,6 +19,14 @@ func _ready():
 	add_to_group("enemy")
 	current_health = MAX_HEALTH
 	player = get_tree().get_first_node_in_group("player")
+	_create_health_bar()
+
+func _create_health_bar() -> void:
+	var hb_script = preload("res://scripts/enemy_health_bar.gd")
+	health_bar = Node2D.new()
+	health_bar.set_script(hb_script)
+	add_child(health_bar)
+	health_bar.setup(MAX_HEALTH)
 
 func _physics_process(delta: float) -> void:
 	if player == null:
@@ -58,6 +67,8 @@ func _physics_process(delta: float) -> void:
 
 func take_damage(amount: int, knockback_origin: Vector2) -> void:
 	current_health -= amount
+	if health_bar:
+		health_bar.update_health(current_health, MAX_HEALTH)
 
 	# Apply knockback away from attacker
 	var knockback_dir = (global_position - knockback_origin).normalized()

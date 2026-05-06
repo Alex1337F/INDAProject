@@ -16,6 +16,7 @@ const KNOCKBACK_DECAY = 8.0
 var player: CharacterBody2D
 var current_health: int = MAX_HEALTH
 var is_knockback: bool = false
+var health_bar: Node2D
 var teleport_timer: float = 0.0
 var damage_timer: float = 0.0
 var bob_time: float = 0.0
@@ -32,9 +33,19 @@ func _ready() -> void:
 	current_health = MAX_HEALTH
 	teleport_timer = randf_range(TELEPORT_INTERVAL_MIN, TELEPORT_INTERVAL_MAX)
 	player = get_tree().get_first_node_in_group("player")
+	_create_health_bar()
+
+func _create_health_bar() -> void:
+	var hb_script = preload("res://scripts/enemy_health_bar.gd")
+	health_bar = Node2D.new()
+	health_bar.set_script(hb_script)
+	add_child(health_bar)
+	health_bar.setup(MAX_HEALTH)
 
 func take_damage(amount: int, knockback_origin: Vector2) -> void:
 	current_health -= amount
+	if health_bar:
+		health_bar.update_health(current_health, MAX_HEALTH)
 	# Cancel teleport if mid-teleport
 	if is_teleporting:
 		is_teleporting = false
