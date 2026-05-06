@@ -133,13 +133,7 @@ func _on_player_died() -> void:
 	death_tween.tween_property(anim, "modulate:a", 0.0, 0.6)
 	death_tween.tween_property(anim, "scale", Vector2(0.3, 0.3), 0.6)
 	death_tween.tween_property(anim, "rotation", TAU, 0.6)
-
-	await death_tween.finished
-
-	# Wait before respawning
-	await get_tree().create_timer(RESPAWN_DELAY).timeout
-
-	_respawn()
+	# Player stays dead until _respawn() is called externally (by death screen)
 
 func _respawn() -> void:
 	# Reset position

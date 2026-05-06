@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://ybefxn3cm6g6" path="res://scenes/skeletonEnemy.tscn" id="8_vtaks"]
 [ext_resource type="PackedScene" uid="uid://cos2ohgh8nh7b" path="res://scenes/bambooEnemy.tscn" id="9_kvpfn"]
 [ext_resource type="PackedScene" uid="uid://8yfu7mpc5a34" path="res://scenes/scene_transition.tscn" id="11_kvpfn"]
+[ext_resource type="PackedScene" path="res://scenes/Deathscreen.tscn" id="12_dinhu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dinhu"]
 texture = ExtResource("2_yqjtg")
@@ -508,5 +509,5 @@ script = ExtResource("6_p57ef")
 
 [node name="SceneTransition" parent="." unique_id=1854889875 instance=ExtResource("11_kvpfn")]
 position = Vector2(369, -288)
-idle_animation = "default"
-open_animation = "default"
+
+[node name="DeathScreen" parent="." unique_id=1579273864 instance=ExtResource("12_dinhu")]
