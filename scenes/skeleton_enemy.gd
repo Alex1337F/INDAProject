@@ -53,10 +53,7 @@ func take_damage(amount: int, knockback_origin: Vector2) -> void:
 	if current_health <= 0:
 		_die()
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed and event.keycode == KEY_P:
-		if not is_dead:
-			_die()
+
 
 func _die() -> void:
 	is_dead = true
