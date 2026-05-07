@@ -12,9 +12,9 @@
 [ext_resource type="PackedScene" uid="uid://cos2ohgh8nh7b" path="res://scenes/bambooEnemy.tscn" id="9_kvpfn"]
 [ext_resource type="PackedScene" uid="uid://8yfu7mpc5a34" path="res://scenes/scene_transition.tscn" id="11_kvpfn"]
 [ext_resource type="PackedScene" uid="uid://texxhtxef48q" path="res://scenes/Deathscreen.tscn" id="12_dinhu"]
-[ext_resource type="PackedScene" path="res://scenes/PauseMenu.tscn" id="13_kvuet"]
+[ext_resource type="PackedScene" uid="uid://c55q0q1mn7ce" path="res://scenes/PauseMenu.tscn" id="13_kvuet"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dinhu"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kvuet"]
 texture = ExtResource("2_yqjtg")
 0:0/0 = 0
 1:0/0 = 0
@@ -471,7 +471,7 @@ texture = ExtResource("2_yqjtg")
 
 [sub_resource type="TileSet" id="TileSet_lbhrr"]
 physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_dinhu")
+sources/0 = SubResource("TileSetAtlasSource_kvuet")
 
 [node name="Game" type="Node2D" unique_id=157234959]
 script = ExtResource("1_u5sy4")
@@ -510,6 +510,7 @@ script = ExtResource("6_p57ef")
 
 [node name="SceneTransition" parent="." unique_id=1854889875 instance=ExtResource("11_kvpfn")]
 position = Vector2(369, -288)
+target_scene = "res://scenes/level_1.tscn"
 
 [node name="DeathScreen" parent="." unique_id=1579273864 instance=ExtResource("12_dinhu")]
 

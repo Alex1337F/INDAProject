@@ -47,7 +47,6 @@ z_index = 10
 collision_layer = 0
 collision_mask = 8
 script = ExtResource("1_rujfs")
-target_scene = "res://scenes/level_1.tscn"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=925365254]
 shape = SubResource("CircleShape2D_hgfgv")

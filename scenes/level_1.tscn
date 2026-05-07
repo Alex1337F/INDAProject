@@ -6,7 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://s3aesa7adavn" path="res://scenes/hud.tscn" id="4_fcfvj"]
 [ext_resource type="PackedScene" uid="uid://cj5m5cmg6vwjg" path="res://scenes/Upgrades.tscn" id="5_pa8r4"]
 [ext_resource type="Script" uid="uid://bxiw04jhg05dn" path="res://scripts/wave_manager.gd" id="6_15mv3"]
-[ext_resource type="PackedScene" path="res://scenes/Deathscreen.tscn" id="7_pa8r4"]
+[ext_resource type="PackedScene" uid="uid://texxhtxef48q" path="res://scenes/Deathscreen.tscn" id="7_pa8r4"]
+[ext_resource type="PackedScene" uid="uid://8yfu7mpc5a34" path="res://scenes/scene_transition.tscn" id="8_15mv3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5xbjy"]
 texture = ExtResource("1_bswci")
@@ -451,6 +452,10 @@ script = ExtResource("2_rus8k")
 
 [node name="WaveManager" type="Node2D" parent="." unique_id=2101746534]
 script = ExtResource("6_15mv3")
-total_waves = 6
+total_waves = 2
 
 [node name="DeathScreen" parent="." unique_id=1025836168 instance=ExtResource("7_pa8r4")]
+
+[node name="SceneTransition" parent="." unique_id=1854889875 instance=ExtResource("8_15mv3")]
+position = Vector2(575, -224)
+target_scene = "res://scenes/boss_fight.tscn"

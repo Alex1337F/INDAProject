@@ -88,12 +88,17 @@ func _wait_for_clear_then_miniboss() -> void:
 
 func _spawn_miniboss() -> void:
 	miniboss_spawned = true
+	print("Miniboss spawning!")
 	var boss = miniboss_scene.instantiate()
 	get_parent().add_child(boss)
 	if player:
 		boss.global_position = player.global_position + Vector2(150, 0)
-	_wait_for_miniboss_death(boss)
+	if boss.has_signal("boss_died"):
+		boss.boss_died.connect(_on_boss_died)
 
+func _on_boss_died() -> void:
+	print("Boss dead!")
+	level_complete.emit()
 func _wait_for_miniboss_death(boss: Node) -> void:
 	while is_instance_valid(boss):
 		await get_tree().create_timer(0.5).timeout
