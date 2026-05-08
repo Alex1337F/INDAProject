@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://bs1pvt3rre7dr"]
+
+[ext_resource type="Script" uid="uid://b3sg3xxoclk5d" path="res://scripts/powerup_drop.gd" id="1_1riwn"]
+[ext_resource type="Texture2D" uid="uid://7l7rkfubjncr" path="res://assets/sprites/Ui/Skill Icon/Spell/AttackUpgrade.png" id="2_fntbg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_agslt"]
+radius = 15.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6vdv4"]
+atlas = ExtResource("2_fntbg")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tllms"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6vdv4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="PowerupDrop" type="Area2D" unique_id=1151964918]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("1_1riwn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1159988873]
+shape = SubResource("CircleShape2D_agslt")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=885521343]
+sprite_frames = SubResource("SpriteFrames_tllms")
+
+[node name="Label" type="Label" parent="." unique_id=66752554]
+offset_left = -17.0
+offset_top = -29.0
+offset_right = 23.0
+offset_bottom = -7.0

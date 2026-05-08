@@ -5,6 +5,8 @@ const SCENES = {
 	"archer":  preload("res://scenes/archer.tscn"),
 	"warrior": preload("res://scenes/warrior.tscn"),
 }
+const POWERUP_DROP_SCENE = preload("res://scenes/powerup_drop.tscn")
+const POWERUP_DROP_CHANCE = 0.75  # 25% chance
 
 const COIN_SCENE = preload("res://scenes/coin.tscn")
 const COIN_DROP_CHANCE = 1.0  # 100% chance to drop a coin
@@ -33,12 +35,27 @@ func _connect_enemy_drops() -> void:
 	for enemy in get_tree().get_nodes_in_group("enemy"):
 		if not enemy.tree_exiting.is_connected(_on_enemy_dying):
 			enemy.tree_exiting.connect(_on_enemy_dying.bind(enemy))
-
+		
+func _connect_single_enemy(enemy: Node) -> void:
+	await get_tree().process_frame  # wait for enemy to be fully in tree
+	if is_instance_valid(enemy) and not enemy.tree_exiting.is_connected(_on_enemy_dying):
+		enemy.tree_exiting.connect(_on_enemy_dying.bind(enemy))	
 func _on_enemy_dying(enemy: Node) -> void:
+	# Capture position while still valid
+	var pos = Vector2.ZERO
+	if is_instance_valid(enemy):
+		pos = enemy.global_position
+	else:
+		return
+		
 	if randf() < COIN_DROP_CHANCE:
-		var pos = enemy.global_position
 		call_deferred("_spawn_coin_at", pos)
-
+	if randf() < POWERUP_DROP_CHANCE:
+		call_deferred("_spawn_powerup_at", pos)
+func _spawn_powerup_at(pos: Vector2) -> void:
+	var pickup = POWERUP_DROP_SCENE.instantiate()
+	add_child(pickup)
+	pickup.global_position = pos
 func _spawn_coin_at(pos: Vector2) -> void:
 	var coin = COIN_SCENE.instantiate()
 	add_child(coin)

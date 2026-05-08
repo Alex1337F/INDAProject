@@ -7,12 +7,11 @@ var p2_timer: float = 0.0
 var p3_timer: float = 0.0
 const SHOOT_INTERVAL_P1 = 0.5
 const SHOOT_INTERVAL_P2 = 1.0
-const SPAWN_INTERVAL_P3 = 5.0
-const SPAWN_INTERVAL_P4 = 5.0
+const SPAWN_INTERVAL_P3 = 3.0
+const SPAWN_INTERVAL_P4 = 3.0
 const MOVE_SPEED = 35.0
 
 const BOSS_PROJECTILE = preload("res://scenes/boss_projectile.tscn")
-
 const ENEMY_SCENES = [
 	preload("res://scenes/YellowBatEnemy.tscn"),
 	preload("res://scenes/eyeEnemy.tscn"),
@@ -25,10 +24,7 @@ const ENEMY_SCENES = [
 
 var current_health: int = MAX_HEALTH
 var current_phase: int = 1
-var action_timer: float = 0.0
 var player: CharacterBody2D
-
-# Health bar nodes
 var boss_hud: CanvasLayer
 var boss_bar: ProgressBar
 var boss_name_label: Label
@@ -39,22 +35,19 @@ signal boss_died
 func _ready() -> void:
 	add_to_group("enemy")
 	current_health = MAX_HEALTH
-	action_timer = 1.5
 	player = get_tree().get_first_node_in_group("player")
-	call_deferred("_create_boss_hud")  # deferred fix()
+	call_deferred("_create_boss_hud")
 
 func _create_boss_hud() -> void:
 	boss_hud = CanvasLayer.new()
 	get_tree().current_scene.add_child(boss_hud)
 
-	# Use a Control as the container we animate instead of CanvasLayer
 	var container = Control.new()
 	container.name = "BossHUDContainer"
 	container.set_anchors_preset(Control.PRESET_TOP_WIDE)
 	container.offset_bottom = 80
 	boss_hud.add_child(container)
 
-	# Dark background panel
 	var panel = ColorRect.new()
 	panel.color = Color(0.0, 0.0, 0.0, 0.7)
 	panel.set_anchors_preset(Control.PRESET_FULL_RECT)
@@ -62,7 +55,6 @@ func _create_boss_hud() -> void:
 	panel.offset_right = -80
 	container.add_child(panel)
 
-	# Boss name label
 	boss_name_label = Label.new()
 	boss_name_label.text = "DAIDALOS"
 	boss_name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -75,7 +67,6 @@ func _create_boss_hud() -> void:
 	boss_name_label.add_theme_color_override("font_color", Color(1.0, 0.85, 0.3))
 	container.add_child(boss_name_label)
 
-	# Health bar
 	boss_bar = ProgressBar.new()
 	boss_bar.max_value = MAX_HEALTH
 	boss_bar.value = MAX_HEALTH
@@ -101,7 +92,6 @@ func _create_boss_hud() -> void:
 	boss_bar.add_theme_stylebox_override("fill", fill_style)
 	container.add_child(boss_bar)
 
-	# Phase label
 	phase_label = Label.new()
 	phase_label.text = "Phase 1"
 	phase_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -114,7 +104,6 @@ func _create_boss_hud() -> void:
 	phase_label.add_theme_color_override("font_color", Color(0.8, 0.8, 0.8))
 	container.add_child(phase_label)
 
-	# Animate the container sliding in from top
 	container.position.y = -80
 	var tween = create_tween()
 	tween.tween_property(container, "position:y", 0.0, 0.5).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
@@ -124,32 +113,26 @@ func _update_boss_bar() -> void:
 		return
 	var tween = create_tween()
 	tween.tween_property(boss_bar, "value", float(current_health), 0.2).set_ease(Tween.EASE_OUT)
-
-	# Change color based on phase
 	var fill_style = StyleBoxFlat.new()
 	fill_style.corner_radius_top_left = 6
 	fill_style.corner_radius_top_right = 6
 	fill_style.corner_radius_bottom_left = 6
 	fill_style.corner_radius_bottom_right = 6
 	match current_phase:
-		1: fill_style.bg_color = Color(0.046, 0.599, 0.185, 1.0)   # Red
-		2: fill_style.bg_color = Color(0.9, 0.5, 0.1)     # Orange
-		3: fill_style.bg_color = Color(0.876, 0.1, 0.214, 1.0)     # Purple
-		4: fill_style.bg_color = Color(0.293, 0.037, 0.414, 1.0)     # Dark/black
+		1: fill_style.bg_color = Color(0.046, 0.599, 0.185, 1.0)
+		2: fill_style.bg_color = Color(0.9, 0.5, 0.1)
+		3: fill_style.bg_color = Color(0.876, 0.1, 0.214, 1.0)
+		4: fill_style.bg_color = Color(0.293, 0.037, 0.414, 1.0)
 	boss_bar.add_theme_stylebox_override("fill", fill_style)
 
 func take_damage(amount: int, knockback_origin: Vector2) -> void:
 	current_health -= amount
 	current_health = max(current_health, 0)
-
-	# Flash red
 	anim.modulate = Color(1.0, 0.2, 0.2, 1.0)
 	var tween = create_tween()
 	tween.tween_property(anim, "modulate", Color.WHITE, 0.2)
-
 	_update_boss_bar()
 	_check_phase()
-
 	if current_health <= 0:
 		_die()
 
@@ -162,23 +145,17 @@ func _check_phase() -> void:
 		new_phase = 3
 	elif hp_ratio <= 0.75:
 		new_phase = 2
-
 	if new_phase != current_phase:
 		current_phase = new_phase
-		action_timer = 0.5
 		print("Boss entered phase ", current_phase)
 		_on_phase_changed()
 
 func _on_phase_changed() -> void:
-	# Update phase label
 	if phase_label:
 		phase_label.text = "Phase " + str(current_phase)
-		# Flash the label
 		phase_label.modulate = Color(1.0, 0.85, 0.3)
 		var tween = create_tween()
 		tween.tween_property(phase_label, "modulate", Color.WHITE, 0.6)
-
-	# Big yellow flash on sprite
 	var tween = create_tween()
 	tween.tween_property(anim, "modulate", Color(2.0, 2.0, 0.2), 0.1)
 	tween.tween_property(anim, "modulate", Color.WHITE, 0.4)
@@ -188,62 +165,42 @@ func _physics_process(delta: float) -> void:
 		player = get_tree().get_first_node_in_group("player")
 		return
 
+	# Phase timers
 	match current_phase:
-
 		1:
 			p1_timer -= delta
-
 			if p1_timer <= 0:
 				p1_timer = SHOOT_INTERVAL_P1
 				_phase1_shoot()
-
 		2:
 			p2_timer -= delta
-
 			if p2_timer <= 0:
 				p2_timer = SHOOT_INTERVAL_P2
 				_phase2_circle_shoot()
-
 		3:
 			p3_timer -= delta
-
 			if p3_timer <= 0:
 				p3_timer = SPAWN_INTERVAL_P3
-				_phase3_spawn_one()
-
+				_phase3_spawn_enemies()
 		4:
-			# ALL PHASES ACTIVE AT ONCE
-
 			p1_timer -= delta
 			p2_timer -= delta
 			p3_timer -= delta
-
 			if p1_timer <= 0:
 				p1_timer = SHOOT_INTERVAL_P1
 				_phase1_shoot()
-
 			if p2_timer <= 0:
 				p2_timer = SHOOT_INTERVAL_P2
 				_phase2_circle_shoot()
-
 			if p3_timer <= 0:
 				p3_timer = SPAWN_INTERVAL_P3
-
-				# normal spawn
-				_phase3_spawn_one()
-
-				# extra phase 4 madness
+				_phase3_spawn_enemies()
 				_phase4_spawn_all()
 
-# Slow movement toward player
-	if player != null:
-		var dir = (player.global_position - global_position).normalized()
-		velocity = dir * MOVE_SPEED
-	else:
-		velocity = Vector2.ZERO
+	# Movement toward player — inside _physics_process, after match
+	var dir = (player.global_position - global_position).normalized()
+	velocity = dir * MOVE_SPEED
 	move_and_slide()
-
-
 
 func _phase1_shoot() -> void:
 	if player == null:
@@ -257,12 +214,13 @@ func _phase2_circle_shoot() -> void:
 		var dir = Vector2(cos(angle), sin(angle))
 		_spawn_projectile(dir)
 
-func _phase3_spawn_one() -> void:
-	var scene = ENEMY_SCENES[randi() % ENEMY_SCENES.size()]
-	_spawn_enemy(scene)
+func _phase3_spawn_enemies() -> void:
+	for i in range(3):
+		var scene = ENEMY_SCENES[randi() % ENEMY_SCENES.size()]
+		_spawn_enemy(scene)
 
 func _phase4_spawn_all() -> void:
-	for i in range(3):
+	for i in range(5):
 		var scene = ENEMY_SCENES[randi() % ENEMY_SCENES.size()]
 		_spawn_enemy(scene)
 
@@ -277,8 +235,16 @@ func _spawn_enemy(scene: PackedScene) -> void:
 	get_tree().current_scene.add_child(enemy)
 	var angle = randf() * TAU
 	enemy.global_position = global_position + Vector2(cos(angle), sin(angle)) * 80.0
+	var game = get_tree().current_scene
+	if game.has_method("_connect_single_enemy"):
+		game._connect_single_enemy(enemy)
 
 func _die() -> void:
+	# Kill all remaining enemies first
+	for enemy in get_tree().get_nodes_in_group("enemy"):
+		if is_instance_valid(enemy) and enemy != self:
+			enemy.queue_free()
+
 	if boss_hud:
 		var container = boss_hud.get_node_or_null("BossHUDContainer")
 		if container:
@@ -286,5 +252,52 @@ func _die() -> void:
 			tween.tween_property(container, "position:y", -80.0, 0.4).set_ease(Tween.EASE_IN)
 			await tween.finished
 		boss_hud.queue_free()
+
 	boss_died.emit()
+	_show_victory_screen()
 	queue_free()
+
+func _show_victory_screen() -> void:
+	var canvas = CanvasLayer.new()
+	get_tree().current_scene.add_child(canvas)
+
+	# Dark overlay
+	var overlay = ColorRect.new()
+	overlay.color = Color(0.0, 0.0, 0.0, 0.0)
+	overlay.set_anchors_preset(Control.PRESET_FULL_RECT)
+	canvas.add_child(overlay)
+
+	# Victory text
+	var title = Label.new()
+	title.text = "VICTORY"
+	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	title.set_anchors_preset(Control.PRESET_CENTER)
+	title.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	title.grow_vertical = Control.GROW_DIRECTION_BOTH
+	title.offset_left = -400
+	title.offset_right = 400
+	title.offset_top = -100
+	title.offset_bottom = -20
+	title.add_theme_font_size_override("font_size", 96)
+	title.add_theme_color_override("font_color", Color(1.0, 0.85, 0.2))
+	title.add_theme_color_override("font_shadow_color", Color(0.6, 0.3, 0.0, 1.0))
+	title.add_theme_constant_override("shadow_offset_x", 4)
+	title.add_theme_constant_override("shadow_offset_y", 4)
+	title.modulate.a = 0.0
+	canvas.add_child(title)
+
+	# Subtitle
+	var subtitle = Label.new()
+	subtitle.text = "DAIDALOS HAS BEEN DEFEATED"
+	subtitle.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	subtitle.set_anchors_preset(Control.PRESET_CENTER)
+	subtitle.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	subtitle.grow_vertical = Control.GROW_DIRECTION_BOTH
+	subtitle.offset_left = -400
+	subtitle.offset_right = 400
+	subtitle.offset_top = 0
+	subtitle.offset_bottom = 40
+	subtitle.add_theme_font_size_override("font_size", 22)
+	subtitle.add_theme_color_override("font_color", Color(0.9, 0.9, 0.9))
+	subtitle.modulate.a = 0.0
+	canvas.add_chi

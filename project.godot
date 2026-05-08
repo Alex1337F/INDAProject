@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 GameState="*uid://cei5bjmyyjy7m"
+PowerupManager="*uid://bybnb8n4mcak8"
 
 [display]
 
