@@ -300,4 +300,38 @@ func _show_victory_screen() -> void:
 	subtitle.add_theme_font_size_override("font_size", 22)
 	subtitle.add_theme_color_override("font_color", Color(0.9, 0.9, 0.9))
 	subtitle.modulate.a = 0.0
-	canvas.add_chi
+	canvas.add_child(subtitle)
+
+	# Continue button
+	var button = Button.new()
+	button.text = "Continue"
+	button.set_anchors_preset(Control.PRESET_CENTER)
+	button.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	button.grow_vertical = Control.GROW_DIRECTION_BOTH
+	button.offset_left = -80
+	button.offset_right = 80
+	button.offset_top = 60
+	button.offset_bottom = 100
+	button.add_theme_font_size_override("font_size", 20)
+	button.modulate.a = 0.0
+	canvas.add_child(button)
+
+	# Animate everything in
+	var tween = create_tween()
+	# Fade in dark overlay
+	tween.tween_property(overlay, "color:a", 0.75, 0.8).set_ease(Tween.EASE_OUT)
+	# Slam in VICTORY text
+	title.scale = Vector2(0.3, 0.3)
+	tween.parallel().tween_property(title, "modulate:a", 1.0, 0.4).set_ease(Tween.EASE_OUT)
+	tween.parallel().tween_property(title, "scale", Vector2(1.0, 1.0), 0.5).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	# Fade in subtitle after a beat
+	tween.tween_interval(0.3)
+	tween.tween_property(subtitle, "modulate:a", 1.0, 0.4)
+	# Fade in button last
+	tween.tween_interval(0.2)
+	tween.tween_property(button, "modulate:a", 1.0, 0.4)
+
+	# Button connects to next scene or main menu
+	button.pressed.connect(func():
+		get_tree().change_scene_to_file("res://scenes/class_select.tscn")
+	)
