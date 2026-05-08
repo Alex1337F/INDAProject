@@ -1,6 +1,12 @@
 [gd_scene format=3 uid="uid://c55q0q1mn7ce"]
 
 [ext_resource type="Script" uid="uid://dnjhpf1cve8ri" path="res://scripts/pause_menu.gd" id="1_pm"]
+[ext_resource type="Texture2D" uid="uid://bklq5f5ir8sl1" path="res://assets/sprites/Ui/kenney_input-prompts_1.5/Keyboard & Mouse/Double/keyboard_a.png" id="tex_a"]
+[ext_resource type="Texture2D" uid="uid://dl1sg5t2k5dqc" path="res://assets/sprites/Ui/kenney_input-prompts_1.5/Keyboard & Mouse/Double/keyboard_arrows.png" id="tex_arrows"]
+[ext_resource type="Texture2D" uid="uid://c1ascm8tjvogt" path="res://assets/sprites/Ui/kenney_input-prompts_1.5/Keyboard & Mouse/Double/keyboard_d.png" id="tex_d"]
+[ext_resource type="Texture2D" uid="uid://tidxxdwe77jc" path="res://assets/sprites/Ui/kenney_input-prompts_1.5/Keyboard & Mouse/Double/keyboard_g.png" id="tex_g"]
+[ext_resource type="Texture2D" uid="uid://dqja5ecxwe4g2" path="res://assets/sprites/Ui/kenney_input-prompts_1.5/Keyboard & Mouse/Double/keyboard_s.png" id="tex_s"]
+[ext_resource type="Texture2D" uid="uid://b0diexjv5gt0t" path="res://assets/sprites/Ui/kenney_input-prompts_1.5/Keyboard & Mouse/Double/keyboard_w.png" id="tex_w"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.12, 0.12, 0.12, 0.95)
@@ -162,5 +168,89 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
 text = "Fullscreen"
+
+[node name="Prompts" type="VBoxContainer" parent="." unique_id=987654321]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 25.0
+offset_top = -243.0
+offset_right = 293.0
+offset_bottom = -91.0
+grow_vertical = 0
+theme_override_constants/separation = 16
+
+[node name="WalkPrompt" type="HBoxContainer" parent="Prompts" unique_id=987654322]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Keys" type="HBoxContainer" parent="Prompts/WalkPrompt" unique_id=987654323]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="W" type="TextureRect" parent="Prompts/WalkPrompt/Keys" unique_id=987654324]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("tex_w")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="A" type="TextureRect" parent="Prompts/WalkPrompt/Keys" unique_id=987654325]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("tex_a")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="S" type="TextureRect" parent="Prompts/WalkPrompt/Keys" unique_id=987654326]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("tex_s")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="D" type="TextureRect" parent="Prompts/WalkPrompt/Keys" unique_id=987654327]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("tex_d")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Prompts/WalkPrompt" unique_id=987654328]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+text = "Walk"
+
+[node name="AttackPrompt" type="HBoxContainer" parent="Prompts" unique_id=987654329]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Arrows" type="TextureRect" parent="Prompts/AttackPrompt" unique_id=987654330]
+custom_minimum_size = Vector2(80, 40)
+layout_mode = 2
+texture = ExtResource("tex_arrows")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Prompts/AttackPrompt" unique_id=987654331]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+text = "Attack / Shoot"
+
+[node name="UpgradePrompt" type="HBoxContainer" parent="Prompts" unique_id=987654332]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="G" type="TextureRect" parent="Prompts/UpgradePrompt" unique_id=987654333]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("tex_g")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Prompts/UpgradePrompt" unique_id=987654334]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+text = "Upgrade   Menu"
 
 [connection signal="pressed" from="FullscreenBtn" to="." method="_on_fullscreen_pressed"]
