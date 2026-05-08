@@ -24,6 +24,7 @@ PowerupManager="*uid://bybnb8n4mcak8"
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/subwindows/embed_subwindows=false
 window/stretch/mode="viewport"
 
 [gui]

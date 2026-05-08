@@ -60,3 +60,16 @@ func _try_pick(event: InputEvent, cls: String) -> void:
 	tw.tween_property(overlay, "color:a", 1.0, 0.5)
 	await tw.finished
 	get_tree().change_scene_to_file("res://scenes/game.tscn")
+
+func _on_fullscreen_pressed() -> void:
+	var win = get_window()
+	#if win.has_method("is_embedded") and win.is_embedded():
+	#	print("Fullscreen is not supported while the game window is embedded.")
+	#	return
+
+	if win.mode == Window.MODE_FULLSCREEN or win.mode == Window.MODE_EXCLUSIVE_FULLSCREEN:
+		win.mode = Window.MODE_WINDOWED
+		win.borderless = false
+	else:
+		win.mode = Window.MODE_FULLSCREEN
+		win.borderless = true

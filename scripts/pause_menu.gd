@@ -82,3 +82,16 @@ func _on_button_hover(btn: Button) -> void:
 func _on_button_unhover(btn: Button) -> void:
 	# No unhover animation
 	pass
+
+func _on_fullscreen_pressed() -> void:
+	var win = get_window()
+	#if win.has_method("is_embedded") and win.is_embedded():
+	#	print("Fullscreen is not supported while the game window is embedded.")
+	#	return
+
+	if win.mode == Window.MODE_FULLSCREEN or win.mode == Window.MODE_EXCLUSIVE_FULLSCREEN:
+		win.mode = Window.MODE_WINDOWED
+		win.borderless = false
+	else:
+		win.mode = Window.MODE_FULLSCREEN
+		win.borderless = true

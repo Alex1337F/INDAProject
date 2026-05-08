@@ -4,6 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://b8h77w31p48ty" path="res://assets/sprites/Ui/BowIcon.png" id="3_0hfno"]
 [ext_resource type="FontFile" uid="uid://dn6ae175ttk4" path="res://assets/sprites/Ui/Font/NormalFont.ttf" id="4_font"]
 [ext_resource type="Texture2D" uid="uid://bjefdlff7qeaj" path="res://assets/sprites/Ui/Ironchests_RPG_items_pico8_transparentbg_v1.png" id="4_uf6t1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Ui/kenney_input-prompts_1.5/Keyboard & Mouse/Double/keyboard_w.png" id="tex_w"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Ui/kenney_input-prompts_1.5/Keyboard & Mouse/Double/keyboard_a.png" id="tex_a"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Ui/kenney_input-prompts_1.5/Keyboard & Mouse/Double/keyboard_s.png" id="tex_s"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Ui/kenney_input-prompts_1.5/Keyboard & Mouse/Double/keyboard_d.png" id="tex_d"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Ui/kenney_input-prompts_1.5/Keyboard & Mouse/Double/keyboard_arrows.png" id="tex_arrows"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Ui/kenney_input-prompts_1.5/Keyboard & Mouse/Double/keyboard_g.png" id="tex_g"]
 
 [sub_resource type="StyleBoxFlat" id="style_card"]
 bg_color = Color(0.18, 0.14, 0.12, 0)
@@ -165,6 +171,108 @@ horizontal_alignment = 1
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 
+[node name="FullscreenBtn" type="Button" parent="Control" unique_id=748239401]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -160.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 60.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0.82, 0.75, 0.6, 1)
+theme_override_fonts/font = ExtResource("4_font")
+theme_override_font_sizes/font_size = 18
+text = "Fullscreen"
+
+[node name="Prompts" type="VBoxContainer" parent="Control"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = -180.0
+offset_right = 300.0
+offset_bottom = -32.0
+grow_vertical = 0
+theme_override_constants/separation = 16
+
+[node name="WalkPrompt" type="HBoxContainer" parent="Control/Prompts"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Keys" type="HBoxContainer" parent="Control/Prompts/WalkPrompt"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="W" type="TextureRect" parent="Control/Prompts/WalkPrompt/Keys"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("tex_w")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="A" type="TextureRect" parent="Control/Prompts/WalkPrompt/Keys"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("tex_a")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="S" type="TextureRect" parent="Control/Prompts/WalkPrompt/Keys"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("tex_s")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="D" type="TextureRect" parent="Control/Prompts/WalkPrompt/Keys"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("tex_d")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Control/Prompts/WalkPrompt"]
+layout_mode = 2
+text = "Walk"
+theme_override_colors/font_color = Color(0.82, 0.75, 0.6, 1)
+theme_override_fonts/font = ExtResource("4_font")
+
+[node name="AttackPrompt" type="HBoxContainer" parent="Control/Prompts"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Arrows" type="TextureRect" parent="Control/Prompts/AttackPrompt"]
+custom_minimum_size = Vector2(80, 40)
+layout_mode = 2
+texture = ExtResource("tex_arrows")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Control/Prompts/AttackPrompt"]
+layout_mode = 2
+text = "Attack / Shoot"
+theme_override_colors/font_color = Color(0.82, 0.75, 0.6, 1)
+theme_override_fonts/font = ExtResource("4_font")
+
+[node name="UpgradePrompt" type="HBoxContainer" parent="Control/Prompts"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="G" type="TextureRect" parent="Control/Prompts/UpgradePrompt"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("tex_g")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Control/Prompts/UpgradePrompt"]
+layout_mode = 2
+text = "Upgrade Menu"
+theme_override_colors/font_color = Color(0.82, 0.75, 0.6, 1)
+theme_override_fonts/font = ExtResource("4_font")
+
 [node name="TransitionOverlay" type="ColorRect" parent="Control" unique_id=1543985846]
 layout_mode = 0
 anchor_right = 1.0
@@ -180,3 +288,4 @@ color = Color(0, 0, 0, 0)
 [connection signal="gui_input" from="Control/Layout/CardsCenter/CardsHBox/WarriorCard" to="Control" method="_on_warrior_card_gui_input"]
 [connection signal="mouse_entered" from="Control/Layout/CardsCenter/CardsHBox/WarriorCard" to="Control" method="_on_warrior_card_mouse_entered"]
 [connection signal="mouse_exited" from="Control/Layout/CardsCenter/CardsHBox/WarriorCard" to="Control" method="_on_warrior_card_mouse_exited"]
+[connection signal="pressed" from="Control/FullscreenBtn" to="Control" method="_on_fullscreen_pressed"]
