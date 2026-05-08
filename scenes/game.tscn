@@ -1,15 +1,11 @@
 [gd_scene format=4 uid="uid://dxry2v4pw3d2v"]
 
 [ext_resource type="Script" uid="uid://b5estdy26diku" path="res://scripts/game.gd" id="1_u5sy4"]
-[ext_resource type="PackedScene" uid="uid://c0gvygpxb1nbo" path="res://scenes/eyeEnemy.tscn" id="2_0tnpc"]
 [ext_resource type="Texture2D" uid="uid://8kw3ni6v5lr1" path="res://assets/sprites/RavenFantasy/All Tileset/16x16.png" id="2_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://cj5m5cmg6vwjg" path="res://scenes/Upgrades.tscn" id="4_vtaks"]
 [ext_resource type="PackedScene" uid="uid://s3aesa7adavn" path="res://scenes/hud.tscn" id="5_iywne"]
 [ext_resource type="Script" uid="uid://b3rfpo0bmet6l" path="res://scripts/player_camera.gd" id="6_p57ef"]
-[ext_resource type="PackedScene" uid="uid://dy4hw3as5u5te" path="res://scenes/enemy.tscn" id="6_u5sy4"]
-[ext_resource type="PackedScene" uid="uid://cphlwx8m1g7nc" path="res://scenes/YellowBatEnemy.tscn" id="7_u5sy4"]
-[ext_resource type="PackedScene" uid="uid://ybefxn3cm6g6" path="res://scenes/skeletonEnemy.tscn" id="8_vtaks"]
-[ext_resource type="PackedScene" uid="uid://cos2ohgh8nh7b" path="res://scenes/bambooEnemy.tscn" id="9_kvpfn"]
+[ext_resource type="Script" uid="uid://bxiw04jhg05dn" path="res://scripts/wave_manager.gd" id="7_wave"]
 [ext_resource type="PackedScene" uid="uid://8yfu7mpc5a34" path="res://scenes/scene_transition.tscn" id="11_kvpfn"]
 [ext_resource type="PackedScene" uid="uid://texxhtxef48q" path="res://scenes/Deathscreen.tscn" id="12_dinhu"]
 [ext_resource type="PackedScene" uid="uid://c55q0q1mn7ce" path="res://scenes/PauseMenu.tscn" id="13_kvuet"]
@@ -498,15 +494,9 @@ tile_set = SubResource("TileSet_lbhrr")
 zoom = Vector2(4, 4)
 script = ExtResource("6_p57ef")
 
-[node name="enemy" parent="." unique_id=1039766219 instance=ExtResource("6_u5sy4")]
-
-[node name="EyeEnemy" parent="." unique_id=1775067585 instance=ExtResource("2_0tnpc")]
-
-[node name="YellowBatEnemy" parent="." unique_id=275462408 instance=ExtResource("7_u5sy4")]
-
-[node name="SkeletonEnemy" parent="." unique_id=1157250381 instance=ExtResource("8_vtaks")]
-
-[node name="BambooEnemy" parent="." unique_id=147720322 instance=ExtResource("9_kvpfn")]
+[node name="WaveManager" type="Node2D" parent="." unique_id=1459606046]
+script = ExtResource("7_wave")
+total_waves = 3
 
 [node name="SceneTransition" parent="." unique_id=1854889875 instance=ExtResource("11_kvpfn")]
 position = Vector2(369, -288)
