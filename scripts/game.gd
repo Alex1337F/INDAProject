@@ -18,6 +18,10 @@ func _ready():
 		player_scene = preload("res://scenes/warrior.tscn")
 
 	var player = player_scene.instantiate()
+	if GameState.chosen_class == "archer":
+		player.MAX_HEALTH = 100   # archer is squishier
+	else:
+		player.MAX_HEALTH = 150  # warrior is tankier
 	add_child(player)
 	player.global_position = Vector2(0, 0)
 
