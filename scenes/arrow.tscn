@@ -6,17 +6,16 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_23jat"]
 size = Vector2(20, 8)
 
-[node name="Arrow" type="Node2D" unique_id=463313395]
-
-[node name="Area2D" type="Area2D" parent="." unique_id=623097799]
-scale = Vector2(-1, -1)
+[node name="Arrow" type="Area2D" unique_id=166152696]
 collision_layer = 0
 collision_mask = 8
 script = ExtResource("1_23jat")
 
-[node name="Sprite2D" type="Sprite2D" parent="Area2D" unique_id=1035048474]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1035048474]
+rotation = 3.1415927
 texture = ExtResource("1_umosx")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1574961075]
-position = Vector2(0, 1)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1574961075]
+position = Vector2(0, -1)
+rotation = 3.1415927
 shape = SubResource("RectangleShape2D_23jat")

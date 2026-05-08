@@ -37,7 +37,6 @@ animations = [{
 [node name="Boss" type="CharacterBody2D" unique_id=854715315]
 z_index = 5
 collision_layer = 8
-collision_mask = 8
 script = ExtResource("1_jncid")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2012857353]
