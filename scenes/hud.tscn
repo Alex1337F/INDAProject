@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dxarlxfoiasco" path="res://scripts/hud.gd" id="1_hud"]
 [ext_resource type="Texture2D" uid="uid://djdqc68rqg7l4" path="res://assets/sprites/Ui/Receptacle/IconHeart.png" id="2_5ysmq"]
 [ext_resource type="Texture2D" uid="uid://bjefdlff7qeaj" path="res://assets/sprites/Ui/Ironchests_RPG_items_pico8_transparentbg_v1.png" id="3_6fi6k"]
+[ext_resource type="Texture2D" uid="uid://ew3un7te10k5" path="res://assets/sprites/Ui/Skull.png" id="4_arrow"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
 bg_color = Color(0.08, 0.08, 0.08, 0.9)
@@ -56,10 +57,10 @@ script = ExtResource("1_hud")
 [node name="HealthBarContainer" type="Control" parent="." unique_id=867075034]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 545.0
-offset_top = 653.0
-offset_right = 765.0
-offset_bottom = 681.0
+offset_left = 24.0
+offset_top = 6.0
+offset_right = 244.0
+offset_bottom = 34.0
 scale = Vector2(2, 2)
 
 [node name="HeartIcon" type="TextureRect" parent="HealthBarContainer" unique_id=453893481]
@@ -123,10 +124,10 @@ vertical_alignment = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -239.0
-offset_top = 646.0
-offset_right = -127.0
-offset_bottom = 680.0
+offset_left = -220.0
+offset_top = 9.0
+offset_right = -112.0
+offset_bottom = 43.0
 grow_horizontal = 0
 scale = Vector2(2, 2)
 theme_override_constants/separation = 4
@@ -176,3 +177,8 @@ offset_right = 942.0
 offset_bottom = 61.0
 theme_override_font_sizes/font_size = 30
 text = "Wave:  X/X"
+
+[node name="EnemyRadar" type="Sprite2D" parent="." unique_id=307481219]
+visible = false
+scale = Vector2(3.5, 3.5)
+texture = ExtResource("4_arrow")

@@ -13,6 +13,9 @@ extends CanvasLayer
 # Wave HUD
 @onready var wave_counter: Label = $WaveCounter
 
+# Radar HUD
+@onready var enemy_radar: Sprite2D = $EnemyRadar
+
 var previous_health: int = 100
 var shake_intensity: float = 0.0
 var original_bar_pos: Vector2
@@ -191,6 +194,101 @@ func _process(delta: float) -> void:
 		if shake_intensity < 0.3:
 			shake_intensity = 0.0
 			bar_container.position = original_bar_pos
+
+	_update_enemy_radar()
+
+func _update_enemy_radar() -> void:
+	var player = get_tree().get_first_node_in_group("player")
+	if not player:
+		enemy_radar.visible = false
+		return
+
+	var target_pos = Vector2.ZERO
+	var is_portal = false
+	
+	var portals = get_tree().get_nodes_in_group("portal")
+	var active_portal = null
+	for p in portals:
+		if p.portal_open:
+			active_portal = p
+			break
+			
+	if active_portal:
+		target_pos = active_portal.global_position
+		is_portal = true
+	else:
+		var enemies = get_tree().get_nodes_in_group("enemy")
+		if enemies.is_empty():
+			enemy_radar.visible = false
+			return
+
+		var closest_enemy = null
+		var min_dist = INF
+		for enemy in enemies:
+			if not is_instance_valid(enemy):
+				continue
+			var dist = player.global_position.distance_to(enemy.global_position)
+			if dist < min_dist:
+				min_dist = dist
+				closest_enemy = enemy
+
+		if not closest_enemy:
+			enemy_radar.visible = false
+			return
+		target_pos = closest_enemy.global_position
+
+	var cam = get_viewport().get_camera_2d()
+	if not cam:
+		enemy_radar.visible = false
+		return
+
+	# Check if target is on screen
+	var screen_rect = get_viewport().get_visible_rect()
+	# The camera position is at the center of the screen
+	var cam_pos = cam.get_screen_center_position()
+	var half_size = screen_rect.size / 2.0 / cam.zoom
+	var view_rect = Rect2(cam_pos - half_size, half_size * 2.0)
+
+	# If the target is on screen, hide the radar
+	if view_rect.has_point(target_pos):
+		enemy_radar.visible = false
+		return
+
+	# Target is offscreen - show and point radar
+	enemy_radar.visible = true
+	
+	if is_portal:
+		enemy_radar.texture = preload("res://assets/sprites/Ui/Arrow.png")
+	else:
+		enemy_radar.texture = preload("res://assets/sprites/Ui/Skull.png")
+
+	var dir_to_target = player.global_position.direction_to(target_pos)
+	
+	# The bottom of the sprite corresponds to the DOWN direction (PI/2).
+	# So we subtract PI/2 from the direction angle so that the bottom points at the target.
+	enemy_radar.rotation = dir_to_target.angle() - PI/2
+
+	# Calculate screen position for the arrow (clamp to screen edges with margin)
+	var margin = 60.0
+	var center = screen_rect.size / 2.0
+
+	# Find intersection with screen bounds
+	# We treat the center of the screen as (0,0) for this math
+	var x_bound = center.x - margin
+	var y_bound = center.y - margin
+
+	var t_x = INF
+	if abs(dir_to_target.x) > 0.001:
+		t_x = x_bound / abs(dir_to_target.x)
+
+	var t_y = INF
+	if abs(dir_to_target.y) > 0.001:
+		t_y = y_bound / abs(dir_to_target.y)
+
+	var t = min(t_x, t_y)
+
+	var offset = dir_to_target * t
+	enemy_radar.position = center + offset
 
 func _on_health_changed(current_hp: int, max_hp: int) -> void:
 	var took_damage = current_hp < previous_health
