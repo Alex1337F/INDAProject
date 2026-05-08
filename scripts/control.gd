@@ -2,11 +2,11 @@ extends Control
 
 const BORDER_COLOR := Color(0.6, 0.5, 0.35, 0.6)
 
-@onready var archer_card    = $Layout/CardsCenter/CardsHBox/ArcherCard
-@onready var warrior_card   = $Layout/CardsCenter/CardsHBox/WarriorCard
-@onready var archer_sprite  = $Layout/CardsCenter/CardsHBox/ArcherCard/VBox/SpriteCenter/ArcherSprite
+@onready var archer_card = $Layout/CardsCenter/CardsHBox/ArcherCard
+@onready var warrior_card = $Layout/CardsCenter/CardsHBox/WarriorCard
+@onready var archer_sprite = $Layout/CardsCenter/CardsHBox/ArcherCard/VBox/SpriteCenter/ArcherSprite
 @onready var warrior_sprite = $Layout/CardsCenter/CardsHBox/WarriorCard/VBox/SpriteCenter/WarriorSprite
-@onready var overlay        = $TransitionOverlay
+@onready var overlay = $TransitionOverlay
 
 var picked := false
 var bob_time := 0.0
