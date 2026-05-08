@@ -56,10 +56,10 @@ script = ExtResource("1_hud")
 [node name="HealthBarContainer" type="Control" parent="." unique_id=867075034]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 24.0
-offset_top = 6.0
-offset_right = 244.0
-offset_bottom = 34.0
+offset_left = 545.0
+offset_top = 653.0
+offset_right = 765.0
+offset_bottom = 681.0
 scale = Vector2(2, 2)
 
 [node name="HeartIcon" type="TextureRect" parent="HealthBarContainer" unique_id=453893481]
@@ -123,10 +123,10 @@ vertical_alignment = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -220.0
-offset_top = 9.0
-offset_right = -112.0
-offset_bottom = 43.0
+offset_left = -239.0
+offset_top = 646.0
+offset_right = -127.0
+offset_bottom = 680.0
 grow_horizontal = 0
 scale = Vector2(2, 2)
 theme_override_constants/separation = 4
