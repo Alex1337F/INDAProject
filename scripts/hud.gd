@@ -147,9 +147,9 @@ func _build_stat_strip() -> void:
 	stat_container.add_theme_constant_override("separation", 16)
 	add_child(stat_container)
 
-	_add_stat_icon("⚔", "attack",   Color(1.0, 0.35, 0.25))
-	_add_stat_icon("🛡", "defence",  Color(0.3, 0.6, 1.0))
-	_add_stat_icon("⚡", "speed",    Color(1.0, 0.85, 0.2))
+	_add_stat_icon("⚔", "attack", Color(1.0, 0.35, 0.25))
+	_add_stat_icon("🛡", "defence", Color(0.3, 0.6, 1.0))
+	_add_stat_icon("⚡", "speed", Color(1.0, 0.85, 0.2))
 	_add_stat_icon("🏹", "firerate", Color(0.5, 1.0, 0.5))
 
 func _add_stat_icon(icon_text: String, stat: String, color: Color) -> void:
@@ -266,7 +266,7 @@ func _update_enemy_radar() -> void:
 	
 	# The bottom of the sprite corresponds to the DOWN direction (PI/2).
 	# So we subtract PI/2 from the direction angle so that the bottom points at the target.
-	enemy_radar.rotation = dir_to_target.angle() - PI/2
+	enemy_radar.rotation = dir_to_target.angle() - PI / 2
 
 	# Calculate screen position for the arrow (clamp to screen edges with margin)
 	var margin = 60.0
@@ -336,11 +336,11 @@ func _on_health_changed(current_hp: int, max_hp: int) -> void:
 	var percent = float(current_hp) / float(max_hp)
 	var fill_style = health_bar.get_theme_stylebox("fill").duplicate()
 	if percent > 0.5:
-		fill_style.bg_color = Color(0.2, 0.9, 0.3)    # Green
+		fill_style.bg_color = Color(0.2, 0.9, 0.3) # Green
 	elif percent > 0.25:
-		fill_style.bg_color = Color(1.0, 0.75, 0.1)   # Yellow/Orange
+		fill_style.bg_color = Color(1.0, 0.75, 0.1) # Yellow/Orange
 	else:
-		fill_style.bg_color = Color(0.9, 0.15, 0.15)  # Red
+		fill_style.bg_color = Color(0.9, 0.15, 0.15) # Red
 	health_bar.add_theme_stylebox_override("fill", fill_style)
 
 	# --- Low health pulsing heart ---
