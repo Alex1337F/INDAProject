@@ -6,7 +6,7 @@ const SCENES = {
 	"warrior": preload("res://scenes/warrior.tscn"),
 }
 const POWERUP_DROP_SCENE = preload("res://scenes/powerup_drop.tscn")
-const POWERUP_DROP_CHANCE = 0.75  # 25% chance
+const POWERUP_DROP_CHANCE = 0.15  # 25% chance
 
 const COIN_SCENE = preload("res://scenes/coin.tscn")
 const COIN_DROP_CHANCE = 1.0  # 100% chance to drop a coin
