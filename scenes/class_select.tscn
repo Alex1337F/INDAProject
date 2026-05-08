@@ -1,39 +1,182 @@
 [gd_scene format=3 uid="uid://bn01v08r0djie"]
 
-[ext_resource type="Script" uid="uid://bdyitr5t8mei4" path="res://scripts/control.gd" id="1_ur81s"]
+[ext_resource type="Script" uid="uid://bdyitr5t8mei4" path="res://scripts/control.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://b8h77w31p48ty" path="res://assets/sprites/Ui/BowIcon.png" id="3_0hfno"]
+[ext_resource type="FontFile" uid="uid://dn6ae175ttk4" path="res://assets/sprites/Ui/Font/NormalFont.ttf" id="4_font"]
+[ext_resource type="Texture2D" uid="uid://bjefdlff7qeaj" path="res://assets/sprites/Ui/Ironchests_RPG_items_pico8_transparentbg_v1.png" id="4_uf6t1"]
 
-[node name="class_select" type="Node2D" unique_id=591326278]
+[sub_resource type="StyleBoxFlat" id="style_card"]
+bg_color = Color(0.18, 0.14, 0.12, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.6, 0.5, 0.35, 0)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
-[node name="Control" type="Control" parent="." unique_id=512715497]
+[sub_resource type="StyleBoxFlat" id="style_card2"]
+bg_color = Color(0.18, 0.14, 0.12, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.6, 0.5, 0.35, 0)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1i6ul"]
+atlas = ExtResource("4_uf6t1")
+region = Rect2(7, 319, 10, 10)
+
+[node name="class_select" type="Node2D" unique_id=18311387]
+
+[node name="Control" type="Control" parent="." unique_id=1142058941]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-size_flags_horizontal = 4
-script = ExtResource("1_ur81s")
+offset_right = 1280.0
+offset_bottom = 720.0
+script = ExtResource("1_script")
 
-[node name="Label" type="Label" parent="Control" unique_id=930975969]
+[node name="Background" type="ColorRect" parent="Control" unique_id=225152872]
 layout_mode = 0
-offset_left = 130.0
-offset_top = 9.0
-offset_right = 170.0
-offset_bottom = 32.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.12, 0.1, 0.09, 1)
 
-[node name="ArcherButton" type="Button" parent="Control" unique_id=1699626814]
+[node name="Layout" type="VBoxContainer" parent="Control" unique_id=673486926]
 layout_mode = 0
-offset_left = 58.0
-offset_top = 93.0
-offset_right = 66.0
-offset_bottom = 101.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
 
-[node name="WarriorButton" type="Button" parent="Control" unique_id=440443466]
+[node name="TopSpacer" type="Control" parent="Control/Layout" unique_id=1357517918]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="Control/Layout" unique_id=1246054826]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.82, 0.75, 0.6, 1)
+theme_override_fonts/font = ExtResource("4_font")
+theme_override_font_sizes/font_size = 28
+text = "Choose Your Class"
+horizontal_alignment = 1
+
+[node name="SepCenter" type="CenterContainer" parent="Control/Layout" unique_id=951563862]
+layout_mode = 2
+
+[node name="Separator" type="ColorRect" parent="Control/Layout/SepCenter" unique_id=889850693]
+custom_minimum_size = Vector2(160, 2)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.6, 0.5, 0.35, 0.35)
+
+[node name="SepSpacer" type="Control" parent="Control/Layout" unique_id=1486455157]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="CardsCenter" type="CenterContainer" parent="Control/Layout" unique_id=570250212]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CardsHBox" type="HBoxContainer" parent="Control/Layout/CardsCenter" unique_id=959956518]
+layout_mode = 2
+theme_override_constants/separation = 120
+
+[node name="ArcherCard" type="Panel" parent="Control/Layout/CardsCenter/CardsHBox" unique_id=777750158]
+custom_minimum_size = Vector2(200, 260)
+layout_mode = 2
+theme_override_styles/panel = SubResource("style_card")
+
+[node name="VBox" type="VBoxContainer" parent="Control/Layout/CardsCenter/CardsHBox/ArcherCard" unique_id=2013444854]
 layout_mode = 0
-offset_left = 261.0
-offset_top = 91.0
-offset_right = 269.0
-offset_bottom = 99.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 16
+alignment = 1
 
-[connection signal="pressed" from="Control/ArcherButton" to="Control" method="_on_archer_button_pressed"]
-[connection signal="pressed" from="Control/ArcherButton" to="Control" method="_on_ArcherButton_pressed"]
-[connection signal="pressed" from="Control/WarriorButton" to="Control" method="_on_warrior_button_pressed"]
-[connection signal="pressed" from="Control/WarriorButton" to="Control" method="_on_WarriorButton_pressed"]
+[node name="SpriteCenter" type="CenterContainer" parent="Control/Layout/CardsCenter/CardsHBox/ArcherCard/VBox" unique_id=232133590]
+layout_mode = 2
+
+[node name="ArcherSprite" type="TextureRect" parent="Control/Layout/CardsCenter/CardsHBox/ArcherCard/VBox/SpriteCenter" unique_id=1053990146]
+texture_filter = 1
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("3_0hfno")
+stretch_mode = 5
+
+[node name="ArcherName" type="Label" parent="Control/Layout/CardsCenter/CardsHBox/ArcherCard/VBox" unique_id=673733757]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.82, 0.75, 0.6, 1)
+theme_override_fonts/font = ExtResource("4_font")
+theme_override_font_sizes/font_size = 20
+text = "Archer"
+horizontal_alignment = 1
+
+[node name="WarriorCard" type="Panel" parent="Control/Layout/CardsCenter/CardsHBox" unique_id=636791370]
+custom_minimum_size = Vector2(200, 260)
+layout_mode = 2
+theme_override_styles/panel = SubResource("style_card2")
+
+[node name="VBox" type="VBoxContainer" parent="Control/Layout/CardsCenter/CardsHBox/WarriorCard" unique_id=934778909]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="SpriteCenter" type="CenterContainer" parent="Control/Layout/CardsCenter/CardsHBox/WarriorCard/VBox" unique_id=65179935]
+layout_mode = 2
+
+[node name="WarriorSprite" type="TextureRect" parent="Control/Layout/CardsCenter/CardsHBox/WarriorCard/VBox/SpriteCenter" unique_id=2027554190]
+texture_filter = 1
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_1i6ul")
+stretch_mode = 5
+
+[node name="WarriorName" type="Label" parent="Control/Layout/CardsCenter/CardsHBox/WarriorCard/VBox" unique_id=1432749510]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.82, 0.75, 0.6, 1)
+theme_override_fonts/font = ExtResource("4_font")
+theme_override_font_sizes/font_size = 20
+text = "Warrior"
+horizontal_alignment = 1
+
+[node name="BottomSpacer" type="Control" parent="Control/Layout" unique_id=496885184]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="TransitionOverlay" type="ColorRect" parent="Control" unique_id=1543985846]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[connection signal="gui_input" from="Control/Layout/CardsCenter/CardsHBox/ArcherCard" to="Control" method="_on_archer_card_gui_input"]
+[connection signal="mouse_entered" from="Control/Layout/CardsCenter/CardsHBox/ArcherCard" to="Control" method="_on_archer_card_mouse_entered"]
+[connection signal="mouse_exited" from="Control/Layout/CardsCenter/CardsHBox/ArcherCard" to="Control" method="_on_archer_card_mouse_exited"]
+[connection signal="gui_input" from="Control/Layout/CardsCenter/CardsHBox/WarriorCard" to="Control" method="_on_warrior_card_gui_input"]
+[connection signal="mouse_entered" from="Control/Layout/CardsCenter/CardsHBox/WarriorCard" to="Control" method="_on_warrior_card_mouse_entered"]
+[connection signal="mouse_exited" from="Control/Layout/CardsCenter/CardsHBox/WarriorCard" to="Control" method="_on_warrior_card_mouse_exited"]
