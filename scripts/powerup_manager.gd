@@ -3,7 +3,7 @@ extends Node
 # Active powerups and their timers
 var active_powerups: Dictionary = {}
 
-const POWERUP_DURATION = 15.0  # seconds each powerup lasts
+const POWERUP_DURATION = 10.0  # seconds each powerup lasts
 
 signal powerup_activated(type: String)
 signal powerup_expired(type: String)
