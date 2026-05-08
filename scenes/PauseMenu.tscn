@@ -1,12 +1,20 @@
 [gd_scene format=3 uid="uid://c55q0q1mn7ce"]
 
 [ext_resource type="Script" uid="uid://dnjhpf1cve8ri" path="res://scripts/pause_menu.gd" id="1_pm"]
+[ext_resource type="Shader" uid="uid://07cbd5p8jdx8" path="res://assets/shaders/BlurShader.gdshader" id="2_vd2mf"]
 [ext_resource type="Texture2D" uid="uid://bklq5f5ir8sl1" path="res://assets/sprites/Ui/kenney_input-prompts_1.5/Keyboard & Mouse/Double/keyboard_a.png" id="tex_a"]
 [ext_resource type="Texture2D" uid="uid://dl1sg5t2k5dqc" path="res://assets/sprites/Ui/kenney_input-prompts_1.5/Keyboard & Mouse/Double/keyboard_arrows.png" id="tex_arrows"]
 [ext_resource type="Texture2D" uid="uid://c1ascm8tjvogt" path="res://assets/sprites/Ui/kenney_input-prompts_1.5/Keyboard & Mouse/Double/keyboard_d.png" id="tex_d"]
 [ext_resource type="Texture2D" uid="uid://tidxxdwe77jc" path="res://assets/sprites/Ui/kenney_input-prompts_1.5/Keyboard & Mouse/Double/keyboard_g.png" id="tex_g"]
 [ext_resource type="Texture2D" uid="uid://dqja5ecxwe4g2" path="res://assets/sprites/Ui/kenney_input-prompts_1.5/Keyboard & Mouse/Double/keyboard_s.png" id="tex_s"]
 [ext_resource type="Texture2D" uid="uid://b0diexjv5gt0t" path="res://assets/sprites/Ui/kenney_input-prompts_1.5/Keyboard & Mouse/Double/keyboard_w.png" id="tex_w"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vd2mf"]
+shader = ExtResource("2_vd2mf")
+shader_parameter/blur_type = 0
+shader_parameter/blur_amount = 16
+shader_parameter/blur_radius = 1.0
+shader_parameter/blur_direction = Vector2(1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.12, 0.12, 0.12, 0.95)
@@ -76,6 +84,16 @@ layer = 25
 script = ExtResource("1_pm")
 
 [node name="Overlay" type="ColorRect" parent="." unique_id=1132036065]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.6)
+
+[node name="Overlay2" type="ColorRect" parent="." unique_id=2074693369]
+material = SubResource("ShaderMaterial_vd2mf")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
