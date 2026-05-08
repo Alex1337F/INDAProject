@@ -42,7 +42,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="SceneTransition" type="Area2D" unique_id=1854889875]
+[node name="SceneTransition" type="Area2D" groups=["portal"] unique_id=1854889875]
 z_index = 10
 collision_layer = 0
 collision_mask = 8
