@@ -1,15 +1,14 @@
-
 extends Node2D
 
 const SCENES = {
-	"archer":  preload("res://scenes/archer.tscn"),
+	"archer": preload("res://scenes/archer.tscn"),
 	"warrior": preload("res://scenes/warrior.tscn"),
 }
 const POWERUP_DROP_SCENE = preload("res://scenes/powerup_drop.tscn")
-const POWERUP_DROP_CHANCE = 0.15  # 25% chance
+const POWERUP_DROP_CHANCE = 0.15 # 25% chance
 
 const COIN_SCENE = preload("res://scenes/coin.tscn")
-const COIN_DROP_CHANCE = 1.0  # 100% chance to drop a coin
+const COIN_DROP_CHANCE = 1.0 # 100% chance to drop a coin
 
 func _ready():
 	var player_scene
@@ -21,9 +20,9 @@ func _ready():
 
 	var player = player_scene.instantiate()
 	if GameState.chosen_class == "archer":
-		player.MAX_HEALTH = 100   # archer is squishier
+		player.MAX_HEALTH = 100 # archer is squishier
 	else:
-		player.MAX_HEALTH = 150  # warrior is tankier
+		player.MAX_HEALTH = 150 # warrior is tankier
 	add_child(player)
 	player.global_position = Vector2(0, 0)
 
@@ -37,9 +36,9 @@ func _connect_enemy_drops() -> void:
 			enemy.tree_exiting.connect(_on_enemy_dying.bind(enemy))
 		
 func _connect_single_enemy(enemy: Node) -> void:
-	await get_tree().process_frame  # wait for enemy to be fully in tree
+	await get_tree().process_frame # wait for enemy to be fully in tree
 	if is_instance_valid(enemy) and not enemy.tree_exiting.is_connected(_on_enemy_dying):
-		enemy.tree_exiting.connect(_on_enemy_dying.bind(enemy))	
+		enemy.tree_exiting.connect(_on_enemy_dying.bind(enemy))
 func _on_enemy_dying(enemy: Node) -> void:
 	# Capture position while still valid
 	var pos = Vector2.ZERO
