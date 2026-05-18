@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cj5m5cmg6vwjg" path="res://scenes/Upgrades.tscn" id="4_vtaks"]
 [ext_resource type="PackedScene" uid="uid://s3aesa7adavn" path="res://scenes/hud.tscn" id="5_iywne"]
 [ext_resource type="Script" uid="uid://b3rfpo0bmet6l" path="res://scripts/player_camera.gd" id="6_p57ef"]
+[ext_resource type="PackedScene" uid="uid://v6dtxtd0vin" path="res://scenes/miniboss.tscn" id="7_vtaks"]
 [ext_resource type="Script" uid="uid://bxiw04jhg05dn" path="res://scripts/wave_manager.gd" id="7_wave"]
 [ext_resource type="PackedScene" path="res://scenes/PowerupTimerHUD.tscn" id="10_vtaks"]
 [ext_resource type="PackedScene" uid="uid://8yfu7mpc5a34" path="res://scenes/scene_transition.tscn" id="11_kvpfn"]
@@ -498,6 +499,7 @@ script = ExtResource("6_p57ef")
 [node name="WaveManager" type="Node2D" parent="." unique_id=1459606046]
 script = ExtResource("7_wave")
 total_waves = 3
+miniboss_scene = ExtResource("7_vtaks")
 
 [node name="SceneTransition" parent="." unique_id=1854889875 instance=ExtResource("11_kvpfn")]
 position = Vector2(369, -288)

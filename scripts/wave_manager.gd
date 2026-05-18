@@ -140,4 +140,3 @@ func _wait_for_miniboss_death(boss: Node) -> void:
 	while is_instance_valid(boss):
 		await get_tree().create_timer(0.5).timeout
 	level_complete.emit()
-
