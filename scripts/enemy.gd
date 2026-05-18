@@ -8,6 +8,7 @@ var current_health: int
 var is_knockback: bool = false
 var damage_timer: float = 0.0
 var health_bar: Node2D
+signal died(pos: Vector2)
 
 const KNOCKBACK_FORCE = 400.0
 const KNOCKBACK_DECAY = 10.0
@@ -84,4 +85,5 @@ func take_damage(amount: int, knockback_origin: Vector2) -> void:
 		die()
 
 func die() -> void:
+	died.emit(global_position)
 	queue_free()
