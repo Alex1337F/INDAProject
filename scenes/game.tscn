@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://s3aesa7adavn" path="res://scenes/hud.tscn" id="5_iywne"]
 [ext_resource type="Script" uid="uid://b3rfpo0bmet6l" path="res://scripts/player_camera.gd" id="6_p57ef"]
 [ext_resource type="Script" uid="uid://bxiw04jhg05dn" path="res://scripts/wave_manager.gd" id="7_wave"]
+[ext_resource type="PackedScene" path="res://scenes/PowerupTimerHUD.tscn" id="10_vtaks"]
 [ext_resource type="PackedScene" uid="uid://8yfu7mpc5a34" path="res://scenes/scene_transition.tscn" id="11_kvpfn"]
 [ext_resource type="PackedScene" uid="uid://texxhtxef48q" path="res://scenes/Deathscreen.tscn" id="12_dinhu"]
 [ext_resource type="PackedScene" uid="uid://c55q0q1mn7ce" path="res://scenes/PauseMenu.tscn" id="13_kvuet"]
@@ -505,3 +506,5 @@ target_scene = "res://scenes/level_1.tscn"
 [node name="DeathScreen" parent="." unique_id=1579273864 instance=ExtResource("12_dinhu")]
 
 [node name="PauseMenu" parent="." unique_id=740198645 instance=ExtResource("13_kvuet")]
+
+[node name="PowerupTimerHUD" parent="." unique_id=219280391 instance=ExtResource("10_vtaks")]
