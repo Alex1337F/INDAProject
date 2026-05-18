@@ -14,6 +14,13 @@ Shop
 Teleporter
 <img width="1920" height="1080" alt="demo4 (1)" src="https://github.com/user-attachments/assets/cb369aa0-6c5e-489c-b2fe-89fdd5bdc334" />
 
+Powerups
+<img width="1920" height="1080" alt="demo5 (2)" src="https://github.com/user-attachments/assets/629bf11f-2cfd-4353-bd79-ae0139cc6afe" />
+
+Bossfight
+<img width="1920" height="1080" alt="demo6 (2)" src="https://github.com/user-attachments/assets/166844ee-ded5-4c24-acb5-5854073b900e" />
+
+
 
 
 
