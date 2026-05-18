@@ -7,6 +7,13 @@ extends CanvasLayer
 @onready var restart_btn: Button = $Panel/VBox/Buttons/RestartBtn
 @onready var quit_btn: Button = $Panel/VBox/Buttons/QuitBtn
 
+# Stats labels
+@onready var total_kills_label: Label = $StatsPanel/StatsVBox/TotalKills
+@onready var deaths_label: Label = $StatsPanel/StatsVBox/Deaths
+@onready var coins_earned_label: Label = $StatsPanel/StatsVBox/CoinsEarned
+@onready var time_played_label: Label = $StatsPanel/StatsVBox/TimePlayed
+@onready var kill_breakdown: VBoxContainer = $StatsPanel/StatsVBox/KillBreakdown
+
 var is_paused: bool = false
 var anim_tween: Tween
 
@@ -37,6 +44,7 @@ func _pause() -> void:
 	is_paused = true
 	visible = true
 	get_tree().paused = true
+	_refresh_stats()
 	
 	overlay.modulate.a = 0.0
 	panel.modulate.a = 0.0
@@ -82,6 +90,48 @@ func _on_button_hover(btn: Button) -> void:
 func _on_button_unhover(btn: Button) -> void:
 	# No unhover animation
 	pass
+
+func _refresh_stats() -> void:
+	total_kills_label.text = "Kills: %d" % GameState.total_kills
+	deaths_label.text = "Deaths: %d" % GameState.total_deaths
+	coins_earned_label.text = "Coins Earned: %d" % GameState.total_coins_earned
+	time_played_label.text = "Time: %s" % GameState.get_time_string()
+
+	# Clear old breakdown rows
+	for child in kill_breakdown.get_children():
+		child.queue_free()
+
+	# Add a row for each enemy type killed
+	var sorted_types = GameState.kills_by_type.keys()
+	sorted_types.sort()
+	for enemy_type in sorted_types:
+		var count = GameState.kills_by_type[enemy_type]
+		var row = HBoxContainer.new()
+		row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+
+		var name_lbl = Label.new()
+		name_lbl.text = enemy_type
+		name_lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		name_lbl.add_theme_font_size_override("font_size", 12)
+		name_lbl.add_theme_color_override("font_color", Color(0.75, 0.75, 0.75))
+		row.add_child(name_lbl)
+
+		var count_lbl = Label.new()
+		count_lbl.text = str(count)
+		count_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		count_lbl.add_theme_font_size_override("font_size", 12)
+		count_lbl.add_theme_color_override("font_color", Color(0.9, 0.85, 0.6))
+		row.add_child(count_lbl)
+
+		kill_breakdown.add_child(row)
+
+	# If no kills yet, show a placeholder
+	if GameState.kills_by_type.is_empty():
+		var empty_lbl = Label.new()
+		empty_lbl.text = "No kills yet"
+		empty_lbl.add_theme_font_size_override("font_size", 11)
+		empty_lbl.add_theme_color_override("font_color", Color(0.5, 0.5, 0.5))
+		kill_breakdown.add_child(empty_lbl)
 
 func _on_fullscreen_pressed() -> void:
 	var win = get_window()

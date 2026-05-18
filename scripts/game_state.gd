@@ -19,6 +19,40 @@ var upgrade_levels: Dictionary = {
 
 const MAX_UPGRADE_LEVEL: int = 10
 
+# --- Stats tracking ---
+var total_kills: int = 0
+var kills_by_type: Dictionary = {}  # e.g. {"Slime": 3, "Skeleton": 2}
+var total_deaths: int = 0
+var total_damage_dealt: int = 0
+var total_coins_earned: int = 0
+var time_played: float = 0.0
+
+func _process(delta: float) -> void:
+	time_played += delta
+
+func record_kill(enemy_name: String) -> void:
+	total_kills += 1
+	kills_by_type[enemy_name] = kills_by_type.get(enemy_name, 0) + 1
+
+func record_death() -> void:
+	total_deaths += 1
+
+func record_damage(amount: int) -> void:
+	total_damage_dealt += amount
+
+func get_time_string() -> String:
+	var mins = int(time_played) / 60
+	var secs = int(time_played) % 60
+	return "%d:%02d" % [mins, secs]
+
+func reset_stats() -> void:
+	total_kills = 0
+	kills_by_type.clear()
+	total_deaths = 0
+	total_damage_dealt = 0
+	total_coins_earned = 0
+	time_played = 0.0
+
 ## Cost to upgrade from current level → next level.
 func get_upgrade_cost(stat: String) -> int:
 	var level = upgrade_levels.get(stat, 0)
@@ -48,6 +82,7 @@ func try_upgrade(stat: String) -> bool:
 
 func add_coins(amount: int) -> void:
 	coins += amount
+	total_coins_earned += amount
 	coins_changed.emit(coins)
 
 func spend_coins(amount: int) -> bool:
@@ -60,3 +95,4 @@ func spend_coins(amount: int) -> bool:
 func reset_coins() -> void:
 	coins = 0
 	coins_changed.emit(coins)
+

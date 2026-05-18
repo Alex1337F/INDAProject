@@ -54,6 +54,10 @@ func _on_enemy_dying(enemy: Node) -> void:
 
 	var pos: Vector2 = enemy.global_position
 
+	# Record the kill for stats
+	var enemy_name = _get_enemy_display_name(enemy)
+	GameState.record_kill(enemy_name)
+
 	if randf() < COIN_DROP_CHANCE:
 		call_deferred("_spawn_coin_at", pos)
 
@@ -88,3 +92,14 @@ func _on_archer_button_pressed() -> void:
 
 func _on_warrior_button_pressed() -> void:
 	pass
+
+func _get_enemy_display_name(enemy: Node) -> String:
+	var filename = enemy.scene_file_path.get_file().get_basename()
+	match filename.to_lower():
+		"enemy": return "Slime"
+		"bambooEnemy", "bambooenemy": return "Bamboo"
+		"eyeenemy": return "Eye"
+		"yellowbatenemy": return "Yellow Bat"
+		"skeletonenemy": return "Skeleton"
+		"boss": return "DAIDALOS"
+	return filename.capitalize()
