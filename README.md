@@ -27,4 +27,4 @@ Bossfight
 Here there will be a few GIFs of some ingame features. :))
 
 ## Installation
-The game is playable directly in your web-browser. No installation needed. Just head to alex1337f.github.io/INDAProject/ and enjoy the game! :D
+The game is playable directly in your web-browser. No installation needed. Just head to https://alex1337f.github.io/INDAProject/ and enjoy the game! :D
