@@ -8,6 +8,15 @@ Class selection
 Mini-Boss
 <img width="1920" height="1080" alt="demo2" src="https://github.com/user-attachments/assets/33b86494-c40a-40eb-a6c2-c6b9aa5dd397" />
 
+Shop
+<img width="1920" height="1080" alt="demo3" src="https://github.com/user-attachments/assets/3353910f-91f1-411b-ab7b-196bbccfe97f" />
+
+Teleporter
+<img width="1920" height="1080" alt="demo4 (1)" src="https://github.com/user-attachments/assets/cb369aa0-6c5e-489c-b2fe-89fdd5bdc334" />
+
+
+
+
 Here there will be a few GIFs of some ingame features. :))
 
 ## Installation
