@@ -5,6 +5,8 @@ Choose between a Warrior (melee) or Archer (ranged) class and battle through wav
 Class selection
 <img width="1920" height="1080" alt="demo1" src="https://github.com/user-attachments/assets/ae8cce0d-7546-4a3c-b779-e21e61cec8b4" />
 
+Mini-Boss
+<img width="1920" height="1080" alt="demo2" src="https://github.com/user-attachments/assets/33b86494-c40a-40eb-a6c2-c6b9aa5dd397" />
 
 Here there will be a few GIFs of some ingame features. :))
 
