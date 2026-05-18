@@ -1,9 +1,2 @@
-Description:
-Different maps/levels with various obstacles and enemies.
-Monsters drop money and power-ups. Money can be used for permanent upgrades, while power-ups are temporary.
-Different classes to choose from, each with unique power-ups and upgrades.
-Infinite wave defense, survive as long as you can.
-Bosses/minibosses along the way with special attack patterns.
-
-With plenty of time left:
-Multiplayer / local multiplayer
+# A top-down 2D action game built in Godot 4.6. 
+Choose between a Warrior (melee) or Archer (ranged) class and battle through waves of enemies across multiple levels. Fight 5 unique enemy types: teleporting eyes, charging bats, bone-throwing skeletons, patrolling bamboo stalkers, and slimes, before facing off against DAIDALOS, a multi-phase boss. Collect coins to upgrade your attack, defence, speed, and fire rate, and pick up temporary powerups like Triple Slash, Berserker Mode, and Explosive Arrows to turn the tide of battle.
