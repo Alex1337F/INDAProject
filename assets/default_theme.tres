@@ -1,6 +1,0 @@
-[gd_resource type="Theme" format=3 uid="uid://ctppvenavkv3a"]
-
-[ext_resource type="FontFile" uid="uid://dn6ae175ttk4" path="res://assets/sprites/Ui/Font/NormalFont.ttf" id="1_font"]
-
-[resource]
-default_font = ExtResource("1_font")
