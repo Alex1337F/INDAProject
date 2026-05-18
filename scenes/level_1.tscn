@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://s3aesa7adavn" path="res://scenes/hud.tscn" id="4_fcfvj"]
 [ext_resource type="PackedScene" uid="uid://cj5m5cmg6vwjg" path="res://scenes/Upgrades.tscn" id="5_pa8r4"]
 [ext_resource type="Script" uid="uid://bxiw04jhg05dn" path="res://scripts/wave_manager.gd" id="6_15mv3"]
+[ext_resource type="PackedScene" uid="uid://c55q0q1mn7ce" path="res://scenes/PauseMenu.tscn" id="7_2os1m"]
 [ext_resource type="PackedScene" uid="uid://v6dtxtd0vin" path="res://scenes/miniboss.tscn" id="7_e3sih"]
 [ext_resource type="PackedScene" uid="uid://texxhtxef48q" path="res://scenes/Deathscreen.tscn" id="7_pa8r4"]
 [ext_resource type="PackedScene" uid="uid://8yfu7mpc5a34" path="res://scenes/scene_transition.tscn" id="8_15mv3"]
@@ -453,6 +454,8 @@ script = ExtResource("2_rus8k")
 [node name="HUD" parent="." unique_id=1821449666 instance=ExtResource("4_fcfvj")]
 
 [node name="Upgrades" parent="HUD" unique_id=135920479 instance=ExtResource("5_pa8r4")]
+
+[node name="PauseMenu" parent="HUD" unique_id=279485201 instance=ExtResource("7_2os1m")]
 
 [node name="WaveManager" type="Node2D" parent="." unique_id=2101746534]
 script = ExtResource("6_15mv3")

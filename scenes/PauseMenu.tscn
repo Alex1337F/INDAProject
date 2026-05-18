@@ -271,4 +271,73 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
 text = "Upgrade   Menu"
 
+[node name="StatsPanel" type="PanelContainer" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -220.0
+offset_top = 80.0
+offset_right = -20.0
+offset_bottom = 380.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="StatsVBox" type="VBoxContainer" parent="StatsPanel"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="StatsTitle" type="Label" parent="StatsPanel/StatsVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 20
+text = "STATS"
+horizontal_alignment = 1
+
+[node name="StatsDivider" type="ColorRect" parent="StatsPanel/StatsVBox"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.3, 0.3, 0.3, 1)
+
+[node name="TotalKills" type="Label" parent="StatsPanel/StatsVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_font_sizes/font_size = 13
+text = "Kills: 0"
+
+[node name="Deaths" type="Label" parent="StatsPanel/StatsVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_font_sizes/font_size = 13
+text = "Deaths: 0"
+
+[node name="CoinsEarned" type="Label" parent="StatsPanel/StatsVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.92, 0.5, 1)
+theme_override_font_sizes/font_size = 13
+text = "Coins Earned: 0"
+
+[node name="TimePlayed" type="Label" parent="StatsPanel/StatsVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.8, 0.9, 1)
+theme_override_font_sizes/font_size = 13
+text = "Time: 0:00"
+
+[node name="KillsDivider" type="ColorRect" parent="StatsPanel/StatsVBox"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.25, 0.25, 0.25, 1)
+
+[node name="KillsTitle" type="Label" parent="StatsPanel/StatsVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.85, 0.85, 1)
+theme_override_font_sizes/font_size = 14
+text = "Kill Breakdown"
+
+[node name="KillBreakdown" type="VBoxContainer" parent="StatsPanel/StatsVBox"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
 [connection signal="pressed" from="FullscreenBtn" to="." method="_on_fullscreen_pressed"]
