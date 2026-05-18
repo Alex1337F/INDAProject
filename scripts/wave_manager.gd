@@ -45,8 +45,19 @@ func _cache_grass_positions() -> void:
 		grass_positions.append(Vector2.ZERO)
 		return
 
+	var used_set: Dictionary = {}
 	for cell in grass_layer.get_used_cells():
-		grass_positions.append(grass_layer.map_to_local(cell))
+		used_set[cell] = true
+
+	for cell in grass_layer.get_used_cells():
+		# Skip edge tiles — only include if all 4 neighbors are also grass
+		var is_interior = true
+		for offset in [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]:
+			if not used_set.has(cell + offset):
+				is_interior = false
+				break
+		if is_interior:
+			grass_positions.append(grass_layer.to_global(grass_layer.map_to_local(cell)))
 
 func _start_next_wave() -> void:
 	if current_wave >= total_waves:

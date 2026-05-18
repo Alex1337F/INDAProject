@@ -29,6 +29,7 @@ var boss_hud: CanvasLayer
 var boss_bar: ProgressBar
 var boss_name_label: Label
 var phase_label: Label
+var _boss_grass_positions: Array[Vector2] = []
 
 signal boss_died
 
@@ -36,7 +37,26 @@ func _ready() -> void:
 	add_to_group("enemy")
 	current_health = MAX_HEALTH
 	player = get_tree().get_first_node_in_group("player")
+	_cache_boss_grass()
 	call_deferred("_create_boss_hud")
+
+func _cache_boss_grass() -> void:
+	var grass_layer = get_tree().current_scene.get_node_or_null("GrassLayer")
+	if grass_layer == null:
+		return
+
+	var used_set: Dictionary = {}
+	for cell in grass_layer.get_used_cells():
+		used_set[cell] = true
+
+	for cell in grass_layer.get_used_cells():
+		var is_interior = true
+		for offset in [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]:
+			if not used_set.has(cell + offset):
+				is_interior = false
+				break
+		if is_interior:
+			_boss_grass_positions.append(grass_layer.to_global(grass_layer.map_to_local(cell)))
 
 func _create_boss_hud() -> void:
 	boss_hud = CanvasLayer.new()
@@ -233,11 +253,28 @@ func _spawn_projectile(dir: Vector2) -> void:
 func _spawn_enemy(scene: PackedScene) -> void:
 	var enemy = scene.instantiate()
 	get_tree().current_scene.add_child(enemy)
-	var angle = randf() * TAU
-	enemy.global_position = global_position + Vector2(cos(angle), sin(angle)) * 80.0
+	enemy.global_position = _pick_nearby_grass()
 	var game = get_tree().current_scene
 	if game.has_method("_connect_single_enemy"):
 		game._connect_single_enemy(enemy)
+
+func _pick_nearby_grass() -> Vector2:
+	if _boss_grass_positions.is_empty():
+		# Fallback: random offset around boss
+		var angle = randf() * TAU
+		return global_position + Vector2(cos(angle), sin(angle)) * 80.0
+
+	# Find grass tiles near the boss (within 200px)
+	var nearby: Array[Vector2] = []
+	for pos in _boss_grass_positions:
+		if pos.distance_to(global_position) <= 200.0:
+			nearby.append(pos)
+
+	if nearby.size() > 0:
+		return nearby[randi() % nearby.size()]
+
+	# Fallback: any grass tile
+	return _boss_grass_positions[randi() % _boss_grass_positions.size()]
 
 func _die() -> void:
 	# Kill all remaining enemies first
