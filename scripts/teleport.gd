@@ -55,7 +55,7 @@ func _show_portal_announcement() -> void:
 	get_tree().current_scene.add_child(canvas)
 
 	var label = Label.new()
-	label.text = "✦ A portal has opened to the next level ✦"
+	label.text = "A portal has opened to the next level"
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	label.set_anchors_preset(Control.PRESET_CENTER)
 	label.grow_horizontal = Control.GROW_DIRECTION_BOTH

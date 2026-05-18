@@ -53,7 +53,7 @@ func _show_arrival_text() -> void:
 	var canvas = CanvasLayer.new()
 	get_tree().current_scene.add_child(canvas)
 	var label = Label.new()
-	label.text = "⚠ MINI-BOSS APPROACHES ⚠"
+	label.text = "MINI-BOSS APPROACHES"
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	label.set_anchors_preset(Control.PRESET_CENTER)
 	label.grow_horizontal = Control.GROW_DIRECTION_BOTH

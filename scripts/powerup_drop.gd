@@ -95,7 +95,7 @@ func _show_pickup_text() -> void:
 	get_tree().current_scene.add_child(canvas)
 
 	var lbl = Label.new()
-	lbl.text = "✦ " + _get_display_name() + " ✦"
+	lbl.text = _get_display_name()
 
 	lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	lbl.set_anchors_preset(Control.PRESET_CENTER)
