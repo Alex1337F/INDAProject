@@ -5,11 +5,13 @@ const SCENES = {
 	"warrior": preload("res://scenes/warrior.tscn"),
 }
 const POWERUP_DROP_SCENE = preload("res://scenes/powerup_drop.tscn")
-const POWERUP_DROP_CHANCE = 0.15 # 25% chance
+const POWERUP_DROP_CHANCE = 0.15
 
+const HEALTH_ORB_SCENE = preload("res://scenes/HealthOrb.tscn")
+const HEALTH_ORB_DROP_CHANCE = 0.20
 
 const COIN_SCENE = preload("res://scenes/coin.tscn")
-const COIN_DROP_CHANCE = 1.0 # 100% chance to drop a coin
+const COIN_DROP_CHANCE = 1.0
 
 func _ready():
 	var player_scene
@@ -61,6 +63,9 @@ func _on_enemy_dying(enemy: Node) -> void:
 	if randf() < COIN_DROP_CHANCE:
 		call_deferred("_spawn_coin_at", pos)
 
+	if randf() < HEALTH_ORB_DROP_CHANCE:
+		call_deferred("_spawn_health_orb_at", pos)
+
 	if randf() < POWERUP_DROP_CHANCE:
 		call_deferred("_spawn_powerup_at", pos)
 
@@ -84,6 +89,12 @@ func _spawn_coin_at(pos: Vector2) -> void:
 	var coin = COIN_SCENE.instantiate()
 	add_child(coin)
 	coin.global_position = pos
+
+func _spawn_health_orb_at(pos: Vector2) -> void:
+	var orb = HEALTH_ORB_SCENE.instantiate()
+	add_child(orb)
+	# Offset slightly so it doesn't stack directly on coins
+	orb.global_position = pos + Vector2(randf_range(-10, 10), randf_range(-10, 10))
 
 
 func _on_archer_button_pressed() -> void:
