@@ -7,6 +7,7 @@ const PROJECTILE_SPEED = 120.0
 const MAX_HEALTH = 50
 const KNOCKBACK_FORCE = 350.0
 const KNOCKBACK_DECAY = 10.0
+signal died(pos: Vector2)
 
 @onready var player: CharacterBody2D
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
@@ -69,6 +70,7 @@ func take_damage(amount: int, knockback_origin: Vector2) -> void:
 func _die() -> void:
 	is_dead = true
 	velocity = Vector2.ZERO
+	died.emit(global_position)
 	hands.visible = false
 	hands2.visible = false
 	bone.visible = false

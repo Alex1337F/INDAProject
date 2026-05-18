@@ -10,6 +10,7 @@ const DAMAGE_COOLDOWN = 0.6
 const MAX_HEALTH = 30
 const KNOCKBACK_FORCE = 400.0
 const KNOCKBACK_DECAY = 12.0
+signal died(pos: Vector2)
 
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 
@@ -56,6 +57,7 @@ func take_damage(amount: int, knockback_origin: Vector2) -> void:
 	var tween = create_tween()
 	tween.tween_property(anim, "modulate", Color.WHITE, 0.2)
 	if current_health <= 0:
+		died.emit(global_position)
 		queue_free()
 
 func _physics_process(delta: float) -> void:
